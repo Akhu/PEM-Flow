@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92129D5728C12A370085C00A /* EntryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D5628C12A370085C00A /* EntryManager.swift */; };
+		92129D5E28C12E5A0085C00A /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */; };
+		92129D5F28C12E5A0085C00A /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */; };
 		92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */; };
 		92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172A28B8BD7C00A268AA /* ContentView.swift */; };
 		92C3172D28B8BD7E00A268AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C3172C28B8BD7E00A268AA /* Assets.xcassets */; };
 		92C3173028B8BD7E00A268AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C3172F28B8BD7E00A268AA /* Preview Assets.xcassets */; };
 		92C3173228B8BD7E00A268AA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173128B8BD7E00A268AA /* Persistence.swift */; };
 		92C3173528B8BD7E00A268AA /* PEM_Flow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173328B8BD7E00A268AA /* PEM_Flow.xcdatamodeld */; };
+		92C3173C28B8BE8E00A268AA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173B28B8BE8E00A268AA /* Home.swift */; };
+		92C3173E28B8BFCE00A268AA /* DataStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173D28B8BFCE00A268AA /* DataStructure.swift */; };
+		92C3174028B8C36B00A268AA /* AddEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173F28B8C36B00A268AA /* AddEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		92129D5628C12A370085C00A /* EntryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryManager.swift; sourceTree = "<group>"; };
+		92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		92C3172528B8BD7C00A268AA /* PEM Flow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PEM Flow.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEM_FlowApp.swift; sourceTree = "<group>"; };
 		92C3172A28B8BD7C00A268AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +32,9 @@
 		92C3172F28B8BD7E00A268AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		92C3173128B8BD7E00A268AA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		92C3173428B8BD7E00A268AA /* PEM_Flow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PEM_Flow.xcdatamodel; sourceTree = "<group>"; };
+		92C3173B28B8BE8E00A268AA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		92C3173D28B8BFCE00A268AA /* DataStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructure.swift; sourceTree = "<group>"; };
+		92C3173F28B8C36B00A268AA /* AddEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,12 +67,18 @@
 		92C3172728B8BD7C00A268AA /* PEM Flow */ = {
 			isa = PBXGroup;
 			children = (
+				92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */,
+				92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */,
+				92C3173F28B8C36B00A268AA /* AddEntry.swift */,
 				92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */,
+				92C3173B28B8BE8E00A268AA /* Home.swift */,
 				92C3172A28B8BD7C00A268AA /* ContentView.swift */,
 				92C3172C28B8BD7E00A268AA /* Assets.xcassets */,
 				92C3173128B8BD7E00A268AA /* Persistence.swift */,
 				92C3173328B8BD7E00A268AA /* PEM_Flow.xcdatamodeld */,
 				92C3172E28B8BD7E00A268AA /* Preview Content */,
+				92C3173D28B8BFCE00A268AA /* DataStructure.swift */,
+				92129D5628C12A370085C00A /* EntryManager.swift */,
 			);
 			path = "PEM Flow";
 			sourceTree = "<group>";
@@ -143,8 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92C3174028B8C36B00A268AA /* AddEntry.swift in Sources */,
 				92C3173228B8BD7E00A268AA /* Persistence.swift in Sources */,
+				92129D5728C12A370085C00A /* EntryManager.swift in Sources */,
 				92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */,
+				92129D5F28C12E5A0085C00A /* Entry+CoreDataProperties.swift in Sources */,
+				92129D5E28C12E5A0085C00A /* Entry+CoreDataClass.swift in Sources */,
+				92C3173C28B8BE8E00A268AA /* Home.swift in Sources */,
+				92C3173E28B8BFCE00A268AA /* DataStructure.swift in Sources */,
 				92C3173528B8BD7E00A268AA /* PEM_Flow.xcdatamodeld in Sources */,
 				92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */,
 			);
