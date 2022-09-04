@@ -15,7 +15,7 @@ extension Entry {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Entry> {
         return NSFetchRequest<Entry>(entityName: "Entry")
     }
-
+    @NSManaged public var createdAt: Date
     @NSManaged public var physicalActivity: Int16
     @NSManaged public var socialActivity: Int16
     @NSManaged public var mentalActivity: Int16
@@ -34,6 +34,10 @@ extension Entry {
     
     var unwrappedNotes: String {
         notes ?? ""
+    }
+    
+    public override func awakeFromInsert() {
+        setPrimitiveValue(NSDate(), forKey: "createdAt")
     }
 }
 

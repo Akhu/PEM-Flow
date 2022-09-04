@@ -12,9 +12,9 @@ struct Home: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var items: FetchedResults<Entry>
     
     @State private var isAddItemOpen = false
     
@@ -44,17 +44,25 @@ struct Home: View {
                 }
             }
             .sheet(isPresented: $isAddItemOpen) {
-                AddEntry()
+                AddEntry(entryManager: EntryManager(context: viewContext))
             }
         
             List() {
                 ForEach(items) { item in
-                    Text(item.timestamp!, formatter: itemFormatter)
+                    Text(item.createdAt, formatter: todayDateFormat)
                 }
             }
         }
         .navigationTitle("Home")
     }
+    
+    private let todayDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     private let itemFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short

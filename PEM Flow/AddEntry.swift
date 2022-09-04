@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddEntry: View {
     
-    @StateObject private var entryManager = EntryManager()
+    @ObservedObject var entryManager: EntryManager
     
     private let todayDateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -26,100 +26,121 @@ struct AddEntry: View {
             }
             Section("Activities ⚡️") {
                 VStack(alignment: .leading) {
-                    Text("💪 Physical Activity")
+                   Label("Physical Activity", systemImage: "figure.walk.circle.fill")
+                        .labelStyle(ColoredIconLabelStyle())
+                        
                     HStack {
                         Slider(value: $entryManager.physicalActivity, in: 0...5, step: 1)
                         
                         Text(entryManager.physicalActivity.formatted(.number))
-                            .font(.largeTitle)
-                            .frame(width: 28)
+                            .modifier(NumberTextStyle())
                     }
                 }
                 VStack(alignment: .leading) {
-                    Text("🙋‍♀️ Social Activity")
+                    Label("Social Activity", systemImage: "figure.wave.circle.fill")
+                         .labelStyle(ColoredIconLabelStyle())
                     HStack {
                         Slider(value: $entryManager.socialActivity, in: 0...5, step: 1)
                         
                         Text(entryManager.socialActivity.formatted(.number))
-                            .font(.largeTitle)
-                            .frame(width: 28)
+                            .modifier(NumberTextStyle())
                     }
                     
                 }
                 VStack(alignment: .leading) {
-                    Text("🧠 Mental Activity")
+                    Label("Cognitive Activity", systemImage: "graduationcap.circle.fill")
+                         .labelStyle(ColoredIconLabelStyle())
+
                     HStack {
                         Slider(value: $entryManager.mentalActivity, in: 0...5, step: 1)
                         
                         Text(entryManager.mentalActivity.formatted(.number))
-                            .font(.largeTitle)
-                            .frame(width: 28)
+                            .modifier(NumberTextStyle())
                     }
                 }
                 VStack(alignment: .leading) {
-                    Text("❣️Emotional Activity")
+                    Label("Emotional Activity", systemImage: "heart.circle.fill")
+                         .labelStyle(ColoredIconLabelStyle())
+                    
                     HStack {
                         Slider(value: $entryManager.emotionalActivity, in: 0...5, step: 1)
                         
                         Text(entryManager.emotionalActivity.formatted(.number))
-                            .font(.largeTitle)
-                            .frame(width: 28)
+                            .modifier(NumberTextStyle())
                     }
                 }
             }
             Section("Symptoms ❤️‍🩹") {
                 VStack(alignment: .leading) {
                     Text("🛌 Good night sleep")
+                        .modifier(DataElementTitleTextStyle())
                     Picker("", selection: $entryManager.goodSleep, content: {
                         Text("Yes").tag(true)
                         Text("No").tag(false)
                     })
                     .pickerStyle(SegmentedPickerStyle())
                     Text("Simple yes or no response pertaining to the night of sleep the evening prior")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .modifier(DescriptionTextStyle())
                 }
                 VStack(alignment: .leading) {
                     Text("🤕 Pain")
+                        .modifier(DataElementTitleTextStyle())
                     HStack {
                         Slider(value: $entryManager.globalPain, in: 0...5, step: 1)
                         Text(entryManager.globalPain.formatted(.number))
-                            .font(.largeTitle)
-                            .frame(width: 28)
+                            .modifier(NumberTextStyle())
                     }
                 }
                 VStack(alignment: .leading) {
                     Text("😵‍💫 Gut and Digestive issues")
+                        .modifier(DataElementTitleTextStyle())
                     HStack {
                         Slider(value: $entryManager.gutPain, in: 0...5, step: 1)
                         
                         Text(entryManager.gutPain.formatted(.number))
-                            .font(.largeTitle)
-                            .frame(width: 28)
+                            .modifier(NumberTextStyle())
                     }
                 }
                 VStack(alignment: .leading) {
                     Text("😶‍🌫️ Neurological issues")
+                        .modifier(DataElementTitleTextStyle())
                     HStack {
                         Slider(value: $entryManager.neurologicalPain, in: 0...5, step: 1)
                         Text(entryManager.neurologicalPain.formatted(.number))
-                            .font(.largeTitle)
-                            .frame(width: 28)
+                            .modifier(NumberTextStyle())
                     }
                 }
             }
-            Section("Crash 🔥") {
+            Section("How was your day?") {
                 VStack(alignment: .leading) {
-                    Text("Having a crash / Had a crash today ?")
-                    Picker("", selection: $entryManager.goodSleep, content: {
-                        Text("Yes").tag(true)
+                    Text("😖 Had a crash today ?")
+                        .modifier(DataElementTitleTextStyle())
+                    Picker("", selection: $entryManager.crash, content: {
+                        Text("Yes")
+                            .tag(true)
                         Text("No").tag(false)
                     })
                     .pickerStyle(SegmentedPickerStyle())
+                    Spacer()
                     Text("A crash refers to a significant set-back in ability to perform daily functions. It represents a temporary worsening of symptoms. Simple yes or no response.")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
+                        .modifier(DescriptionTextStyle())
+                    Divider().padding(.bottom)
+                    Text("🌈 Notes")
+                        .modifier(DataElementTitleTextStyle())
+                    
+                    TextEditor(text: $entryManager.notes)
+                        .padding(.leading, 8)
+                        .padding(.top, 8)
+                        .background(Color.gray.opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
+                        
+                        
+                    Spacer()
+                    Text("Set your mind free before bed by writing how do you feel? What happened special (or not) today? Being grateful for the good moments also help recovering.")
+                        .modifier(DescriptionTextStyle())
+                        
+                }.padding(.vertical)
             }
             Section("Save") {
                 VStack(alignment: .leading) {
@@ -135,17 +156,19 @@ struct AddEntry: View {
                         }.padding(.vertical, 6)
                     })
                     .buttonStyle(BorderedProminentButtonStyle())
+                    Spacer()
                     Text("This will add an entry for today, you can add one entry per day, if necessary you can delete this entry in the history section and re-recrate one")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
+                        .modifier(DescriptionTextStyle())
+                }.padding(.vertical)
             }
         }
+        
     }
 }
 
 struct AddEntry_Previews: PreviewProvider {
+     
     static var previews: some View {
-        AddEntry()
+        AddEntry(entryManager: EntryManager(context: PersistenceController.preview.container.viewContext))
     }
 }

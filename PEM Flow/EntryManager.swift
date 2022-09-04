@@ -24,12 +24,16 @@ class EntryManager: ObservableObject {
     
     @Published var crash: Bool = false
     
-    @Published var notes: String?
+    @Published var notes: String = ""
     
-    @Environment(\.managedObjectContext) var moc
+    private var moc: NSManagedObjectContext
+    
+    init(context: NSManagedObjectContext){
+        moc = context
+    }
     
     func saveEntry() {
-        let entry = Entry()
+        let entry = Entry(context: moc)
         
         //Activity
         entry.emotionalActivity = Int16(self.emotionalActivity)
