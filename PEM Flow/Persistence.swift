@@ -18,7 +18,7 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        EntryManager.generateSampleItems(number: 20, context: viewContext)
+        EntryManager.generateSampleItems(number: 10, context: viewContext)
         do {
             try viewContext.save()
         } catch {

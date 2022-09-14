@@ -32,7 +32,7 @@ struct AddEntry: View {
                         .labelStyle(ColoredIconLabelStyle())
                         
                     HStack {
-                        Slider(value: $entryManager.physicalActivity, in: 0...5, step: 1)
+                        Slider(value: $entryManager.physicalActivity, in: 0...10, step: 1)
                         
                         Text(entryManager.physicalActivity.formatted(.number))
                             .modifier(NumberTextStyle())
@@ -42,7 +42,7 @@ struct AddEntry: View {
                     Label("Social Activity", systemImage: "figure.wave.circle.fill")
                          .labelStyle(ColoredIconLabelStyle())
                     HStack {
-                        Slider(value: $entryManager.socialActivity, in: 0...5, step: 1)
+                        Slider(value: $entryManager.socialActivity, in: 0...10, step: 1)
                         
                         Text(entryManager.socialActivity.formatted(.number))
                             .modifier(NumberTextStyle())
@@ -54,7 +54,7 @@ struct AddEntry: View {
                          .labelStyle(ColoredIconLabelStyle())
 
                     HStack {
-                        Slider(value: $entryManager.mentalActivity, in: 0...5, step: 1)
+                        Slider(value: $entryManager.mentalActivity, in: 0...10, step: 1)
                         
                         Text(entryManager.mentalActivity.formatted(.number))
                             .modifier(NumberTextStyle())
@@ -65,7 +65,7 @@ struct AddEntry: View {
                          .labelStyle(ColoredIconLabelStyle())
                     
                     HStack {
-                        Slider(value: $entryManager.emotionalActivity, in: 0...5, step: 1)
+                        Slider(value: $entryManager.emotionalActivity, in: 0...10, step: 1)
                         
                         Text(entryManager.emotionalActivity.formatted(.number))
                             .modifier(NumberTextStyle())
@@ -88,7 +88,7 @@ struct AddEntry: View {
                     Text("🫥 Fatigue")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.fatigue, in: 0...5, step: 1)
+                        Slider(value: $entryManager.fatigue, in: 0...10, step: 1)
                         Text(entryManager.fatigue.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
@@ -97,7 +97,7 @@ struct AddEntry: View {
                     Text("🤕 Pain")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.globalPain, in: 0...5, step: 1)
+                        Slider(value: $entryManager.globalPain, in: 0...10, step: 1)
                         Text(entryManager.globalPain.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
@@ -106,7 +106,7 @@ struct AddEntry: View {
                     Text("😵‍💫 Gut and Digestive issues")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.gutPain, in: 0...5, step: 1)
+                        Slider(value: $entryManager.gutPain, in: 0...10, step: 1)
                         
                         Text(entryManager.gutPain.formatted(.number))
                             .modifier(NumberTextStyle())
@@ -116,7 +116,7 @@ struct AddEntry: View {
                     Text("😶‍🌫️ Neurological issues")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.neurologicalPain, in: 0...5, step: 1)
+                        Slider(value: $entryManager.neurologicalPain, in: 0...10, step: 1)
                         Text(entryManager.neurologicalPain.formatted(.number))
                             .modifier(NumberTextStyle())
                     }

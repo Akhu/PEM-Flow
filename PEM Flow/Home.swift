@@ -13,7 +13,7 @@ struct Home: View {
     @Environment(\.dismiss) private var dismiss
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)],
-        animation: .default) var items: FetchedResults<Entry>
+        animation: .easeInOut(duration: 0.4)) var items: FetchedResults<Entry>
 
     @State private var isAddItemOpen = false
     //Todo décider si on part avec Core Caca ou CacaKit
@@ -24,6 +24,41 @@ struct Home: View {
     var body: some View {
         NavigationStack {
             List() {
+                Section("Today") {
+                    Button {
+                        isAddItemOpen.toggle()
+                    } label: {
+                        Label("How was your day?", systemImage: "list.bullet.clipboard.fill")
+                    }
+                }
+                Section("Fatigue") {
+                    Chart {
+                        ForEach(items) { entry in
+                            BarMark(
+                                x: .value("Date", entry.createdAt),
+                                y: .value("Level", entry.fatigue)
+                            )
+                            .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
+                            if entry.crash {
+                                PointMark(
+                                    x: .value("Date", entry.createdAt), y: .value("Crash", entry.fatigue)
+                                )
+                                .annotation(content: {
+                                    Text("☠️")
+                                        .font(.system(size: 8))
+                                })
+                                .opacity(0)
+                                .foregroundStyle(by: .value("Crash 🔥", "Crash 🔥"))
+                            }
+                        }
+                    }
+                    .chartForegroundStyleScale([
+                        "Fatigue": .yellow, "Crash 🔥": .red
+                    ])
+                    .frame(height: 100)
+                    .padding(.horizontal)
+                    .padding(.top, 24)
+                }
                 Section("Symptoms") {
                     SymptomsChart(seriesArray: items)
                     .frame(height: 300)
@@ -50,9 +85,17 @@ struct Home: View {
             })
             .toolbar(id: UUID().uuidString) {
                 
-                ToolbarItem(id: "addEntry", placement: .primaryAction) {
+                ToolbarItem(id: "addEntry") {
                     Button("Add entry for today") {
                         isAddItemOpen.toggle()
+                    }
+                }
+                ToolbarItem(id: "removeAll") {
+                    Button("Remove All") {
+                        items.forEach { entry in
+                            viewContext.delete(entry)
+                        }
+                        try? viewContext.save()
                     }
                 }
                 ToolbarItem(id:"history") {
@@ -164,57 +207,57 @@ struct ActivityChart: View {
 struct SymptomsChart: View {
     var seriesArray: FetchedResults<Entry>
     var body: some View {
-        Chart {
-            ForEach(seriesArray) { entry in
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.fatigue)
-                )
-                .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.fatigue)
-                )
-                .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.gutPain)
-                )
-                .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.gutPain)
-                )
-                .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
-                
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.neurologicalPain)
-                )
-                .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.neurologicalPain)
-                )
-                .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
-                
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.globalPain)
-                )
-                .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.globalPain)
-                )
-                .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
+//        ScrollView(.horizontal){
+            Chart {
+                ForEach(seriesArray) { entry in
+                    LineMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.fatigue)
+                    )
+                    .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
+                    PointMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.fatigue)
+                    )
+                    .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
+                    LineMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.gutPain)
+                    )
+                    .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
+                    PointMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.gutPain)
+                    )
+                    .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
+                    
+                    LineMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.neurologicalPain)
+                    )
+                    .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
+                    PointMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.neurologicalPain)
+                    )
+                    .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
+                    
+                    LineMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.globalPain)
+                    )
+                    .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
+                    PointMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.globalPain)
+                    )
+                    .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
+                }
             }
-        }
-        .chartForegroundStyleScale([
-            "Fatigue": .green, "Gut": .purple, "Global": .pink, "Neurological": .yellow
-        ])
-        .chartYAxisLabel("Symptoms strength")
-        
-        
+            .chartForegroundStyleScale([
+                "Fatigue": .green, "Gut": .purple, "Global": .pink, "Neurological": .yellow
+            ])
+            .chartYAxisLabel("Symptoms strength")
+//        }
     }
 }

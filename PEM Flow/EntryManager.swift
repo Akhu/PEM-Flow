@@ -11,15 +11,15 @@ import SwiftUI
 import CoreData
 
 class EntryManager: ObservableObject {
-    @Published var physicalActivity : Float = 3
-    @Published var socialActivity : Float = 3
-    @Published var mentalActivity : Float = 3
-    @Published var emotionalActivity : Float = 3
+    @Published var physicalActivity : Float = 5
+    @Published var socialActivity : Float = 5
+    @Published var mentalActivity : Float = 5
+    @Published var emotionalActivity : Float = 5
     
-    @Published var fatigue: Float = 3
-    @Published var globalPain: Float = 3
-    @Published var gutPain: Float = 3
-    @Published var neurologicalPain: Float = 3
+    @Published var fatigue: Float = 5
+    @Published var globalPain: Float = 5
+    @Published var gutPain: Float = 5
+    @Published var neurologicalPain: Float = 5
     @Published var goodSleep: Bool = false
     
     @Published var crash: Bool = false
@@ -43,15 +43,15 @@ class EntryManager: ObservableObject {
             let newItem = Entry(context: context)
             newItem.id = UUID()
             newItem.createdAt = Date().addingTimeInterval(-(86400*Double(i)))
-            newItem.fatigue = Int16.random(in: 0...5)
-            newItem.physicalActivity = Int16.random(in: 0...5)
-            newItem.socialActivity = Int16.random(in: 0...5)
+            newItem.fatigue = Int16.random(in: 0...10)
+            newItem.physicalActivity = Int16.random(in: 0...10)
+            newItem.socialActivity = Int16.random(in: 0...10)
             newItem.mentalActivity = Int16.random(in: 0...5)
-            newItem.emotionalActivity = Int16.random(in: 0...5)
+            newItem.emotionalActivity = Int16.random(in: 0...10)
             
-            newItem.gutPain = Int16.random(in: 0...5)
-            newItem.globalPain = Int16.random(in: 0...5)
-            newItem.neurologicalPain = Int16.random(in: 0...5)
+            newItem.gutPain = Int16.random(in: 0...10)
+            newItem.globalPain = Int16.random(in: 0...10)
+            newItem.neurologicalPain = Int16.random(in: 0...10)
             newItem.crash = Bool.random()
             newItem.goodSleep = Bool.random()
         }
