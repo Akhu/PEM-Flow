@@ -9,51 +9,51 @@ import SwiftUI
 import Charts
 struct Home: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
-
+    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.dismiss) private var dismiss
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Entry>
-    
+        animation: .default) var items: FetchedResults<Entry>
+
     @State private var isAddItemOpen = false
-    
+    //Todo décider si on part avec Core Caca ou CacaKit
+   // @ObservedObject var entryManager : EntryManager
+
     var body: some View {
         NavigationStack {
-            Chart {
-                ForEach(stackedBarData) { shape in
-                        BarMark(
-                            x: .value("Shape Type", shape.type),
-                            y: .value("Total Count", shape.count)
-                        )
-                        .foregroundStyle(by: .value("Shape Color", shape.color))
-                    }
-                ForEach(stackedBarData) { shape in
-                        PointMark(
-                            x: .value("Shape Type", shape.type),
-                            y: .value("Total Count", shape.count)
-                        )
-                        .foregroundStyle(by: .value("Shape Color", shape.color))
-                    }
-            }
-            .frame(height: 300)
-            .padding(.horizontal)
-            .toolbar {
-                Button("Add entry for today") {
-                    isAddItemOpen.toggle()
-                }
-            }
-            .sheet(isPresented: $isAddItemOpen) {
-                AddEntry(entryManager: EntryManager(context: viewContext))
-            }
-        
             List() {
-                ForEach(items) { item in
-                    Text(item.createdAt, formatter: todayDateFormat)
+                Section("Symptoms") {
+                    SymptomsChart(seriesArray: items)
+                    .frame(height: 300)
+                    .padding(.horizontal)
+                }
+                
+                Section("Activities") {
+                    ActivityChart(seriesArray: items)
+                        .frame(height: 300)
+                        .padding(.horizontal)
+                }
+                NavigationLink(destination: {
+                    Text("History")
+                }, label: {
+                    Label("History", systemImage: "clock.arrow.circlepath")
+                })
+
+            }
+            .sheet(isPresented: $isAddItemOpen, content: {
+                AddEntry()
+            })
+            .toolbar(id: UUID().uuidString) {
+                ToolbarItem(id: "addEntry") {
+                    Button("Add entry for today") {
+                        isAddItemOpen.toggle()
+                    }
                 }
             }
+
+            .navigationTitle("PEM Flow")
         }
-        .navigationTitle("Home")
+        
     }
     
     private let todayDateFormat: DateFormatter = {
@@ -73,6 +73,125 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        Home()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
+
+
+struct ActivityChart: View {
+    @State var seriesArray: FetchedResults<Entry>
+    var body: some View {
+        Chart {
+            ForEach(seriesArray) { entry in
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.socialActivity)
+                )
+                .foregroundStyle(by: .value("Social Activity", "Social"))
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.mentalActivity)
+                )
+                .foregroundStyle(by: .value("Mental Activity", "Mental"))
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.physicalActivity)
+                )
+                .foregroundStyle(by: .value("Physical Activity", "Physical"))
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.emotionalActivity)
+                )
+                .foregroundStyle(by: .value("Emotional Activity", "Emotional"))
+                
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.socialActivity)
+                )
+                .foregroundStyle(by: .value("Social Activity", "Social"))
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.mentalActivity)
+                )
+                .foregroundStyle(by: .value("Mental Activity", "Mental"))
+                
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.physicalActivity)
+                )
+                .foregroundStyle(by: .value("Physical Activity", "Physical"))
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.emotionalActivity)
+                )
+                .foregroundStyle(by: .value("Emotional Activity", "Emotional"))
+            }
+        }
+        .chartForegroundStyleScale([
+            "Physical": .green, "Emotional": .purple, "Mental": .pink, "Social": .yellow
+        ])
+        .chartYAxisLabel("Symptoms strength")
+        
+        
+    }
+}
+
+
+struct SymptomsChart: View {
+    @State var seriesArray: FetchedResults<Entry>
+    var body: some View {
+        Chart {
+            ForEach(seriesArray) { entry in
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.fatigue)
+                )
+                .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.fatigue)
+                )
+                .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.gutPain)
+                )
+                .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.gutPain)
+                )
+                .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
+                
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.neurologicalPain)
+                )
+                .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.neurologicalPain)
+                )
+                .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
+                
+                LineMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.globalPain)
+                )
+                .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
+                PointMark(
+                    x: .value("Date", entry.createdAt),
+                    y: .value("Level", entry.globalPain)
+                )
+                .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
+            }
+        }
+        .chartForegroundStyleScale([
+            "Fatigue": .green, "Gut": .purple, "Global": .pink, "Neurological": .yellow
+        ])
+        .chartYAxisLabel("Symptoms strength")
+        
+        
     }
 }

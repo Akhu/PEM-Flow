@@ -21,6 +21,7 @@ extension Entry {
     @NSManaged public var mentalActivity: Int16
     @NSManaged public var emotionalActivity: Int16
     @NSManaged public var fatigue: Int16
+    @NSManaged public var goodSleep: Bool
     @NSManaged public var globalPain: Int16
     @NSManaged public var gutPain: Int16
     @NSManaged public var neurologicalPain: Int16

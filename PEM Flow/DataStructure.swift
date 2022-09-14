@@ -14,6 +14,26 @@ struct ToyShape: Identifiable {
     var id = UUID()
 }
 
+struct Series: Identifiable {
+    let createdAt: Date
+    
+    let gutPain: Int16
+    let physicalActivity: Int16
+    let socialActivity: Int16
+    let mentalActivity: Int16
+    let emotionalActivity: Int16
+    
+    let fatigue: Int16
+    let goodSleep: Bool
+    let globalPain: Int16
+    let neurologicalPain: Int16
+    
+    let crash: Bool
+    
+    let notes: String?
+    var id: Date { createdAt }
+}
+
 var stackedBarData: [ToyShape] = [
     .init(color: "Green", type: "Cube", count: 2),
     .init(color: "Green", type: "Sphere", count: 0),

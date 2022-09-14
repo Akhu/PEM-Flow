@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AddEntry: View {
     
-    @ObservedObject var entryManager: EntryManager
+    @ObservedObject var entryManager = EntryManager()
+    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var viewContext
     
     private let todayDateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -83,6 +85,15 @@ struct AddEntry: View {
                         .modifier(DescriptionTextStyle())
                 }
                 VStack(alignment: .leading) {
+                    Text("🫥 Fatigue")
+                        .modifier(DataElementTitleTextStyle())
+                    HStack {
+                        Slider(value: $entryManager.fatigue, in: 0...5, step: 1)
+                        Text(entryManager.fatigue.formatted(.number))
+                            .modifier(NumberTextStyle())
+                    }
+                }
+                VStack(alignment: .leading) {
                     Text("🤕 Pain")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
@@ -145,7 +156,8 @@ struct AddEntry: View {
             Section("Save") {
                 VStack(alignment: .leading) {
                     Button(action: {
-                        entryManager.saveEntry()
+                        entryManager.saveEntry(moc: viewContext)
+                        presentationMode.wrappedValue.dismiss()
                     }, label: {
                         HStack {
                             Spacer()
@@ -164,11 +176,14 @@ struct AddEntry: View {
         }
         
     }
+    
+    
 }
 
 struct AddEntry_Previews: PreviewProvider {
      
     static var previews: some View {
-        AddEntry(entryManager: EntryManager(context: PersistenceController.preview.container.viewContext))
+        AddEntry(entryManager: EntryManager())
+            
     }
 }

@@ -26,13 +26,19 @@ class EntryManager: ObservableObject {
     
     @Published var notes: String = ""
     
-    private var moc: NSManagedObjectContext
+    private var cancellables = Set<AnyCancellable>()
     
-    init(context: NSManagedObjectContext){
-        moc = context
-    }
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)],
+//        animation: .default)
+//    var fetchRequest: FetchRequest<Entry>
+//    var items: FetchedResults<Entry>
+//    private var mocDidSaved = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
-    func saveEntry() {
+    @Published var seriesArray = [Series]()
+
+    
+    func saveEntry(moc: NSManagedObjectContext) {
         let entry = Entry(context: moc)
         
         //Activity
@@ -56,4 +62,6 @@ class EntryManager: ObservableObject {
             try? moc.save()
         }
     }
+    
+    
 }
