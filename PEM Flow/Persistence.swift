@@ -7,29 +7,18 @@
 
 import CoreData
 
+
+
+
 struct PersistenceController {
     static let shared = PersistenceController()
-
+    
+   
+    
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for i in 0..<10 {
-            let newItem = Entry(context: viewContext)
-            newItem.id = UUID()
-            newItem.createdAt = Date().addingTimeInterval(-(86400*Double(i)))
-            print(Date().addingTimeInterval(-(86400*Double(i))))
-            newItem.fatigue = Int16.random(in: 0...5)
-            newItem.physicalActivity = Int16.random(in: 0...5)
-            newItem.socialActivity = Int16.random(in: 0...5)
-            newItem.mentalActivity = Int16.random(in: 0...5)
-            newItem.emotionalActivity = Int16.random(in: 0...5)
-            
-            newItem.gutPain = Int16.random(in: 0...5)
-            newItem.globalPain = Int16.random(in: 0...5)
-            newItem.neurologicalPain = Int16.random(in: 0...5)
-            newItem.crash = Bool.random()
-            newItem.goodSleep = Bool.random()
-        }
+        EntryManager.generateSampleItems(number: 20, context: viewContext)
         do {
             try viewContext.save()
         } catch {

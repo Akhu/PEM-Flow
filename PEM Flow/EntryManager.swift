@@ -38,6 +38,27 @@ class EntryManager: ObservableObject {
     @Published var seriesArray = [Series]()
 
     
+    static func generateSampleItems(number: Int, context: NSManagedObjectContext) {
+        for i in 0..<20 {
+            let newItem = Entry(context: context)
+            newItem.id = UUID()
+            newItem.createdAt = Date().addingTimeInterval(-(86400*Double(i)))
+            newItem.fatigue = Int16.random(in: 0...5)
+            newItem.physicalActivity = Int16.random(in: 0...5)
+            newItem.socialActivity = Int16.random(in: 0...5)
+            newItem.mentalActivity = Int16.random(in: 0...5)
+            newItem.emotionalActivity = Int16.random(in: 0...5)
+            
+            newItem.gutPain = Int16.random(in: 0...5)
+            newItem.globalPain = Int16.random(in: 0...5)
+            newItem.neurologicalPain = Int16.random(in: 0...5)
+            newItem.crash = Bool.random()
+            newItem.goodSleep = Bool.random()
+        }
+        
+        try? context.save()
+    }
+    
     func saveEntry(moc: NSManagedObjectContext) {
         let entry = Entry(context: moc)
         

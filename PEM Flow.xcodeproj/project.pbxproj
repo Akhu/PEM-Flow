@@ -11,6 +11,7 @@
 		92129D5E28C12E5A0085C00A /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */; };
 		92129D5F28C12E5A0085C00A /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */; };
 		92129D6128C4F8EA0085C00A /* ViewsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D6028C4F8EA0085C00A /* ViewsStyles.swift */; };
+		927BC1BE28D269E8007A76D5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BC1BD28D269E8007A76D5 /* HistoryView.swift */; };
 		92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */; };
 		92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172A28B8BD7C00A268AA /* ContentView.swift */; };
 		92C3172D28B8BD7E00A268AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C3172C28B8BD7E00A268AA /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		92129D6028C4F8EA0085C00A /* ViewsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsStyles.swift; sourceTree = "<group>"; };
+		927BC1BD28D269E8007A76D5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		92C3172528B8BD7C00A268AA /* PEM Flow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PEM Flow.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEM_FlowApp.swift; sourceTree = "<group>"; };
 		92C3172A28B8BD7C00A268AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				92C3173D28B8BFCE00A268AA /* DataStructure.swift */,
 				92129D5628C12A370085C00A /* EntryManager.swift */,
 				92129D6028C4F8EA0085C00A /* ViewsStyles.swift */,
+				927BC1BD28D269E8007A76D5 /* HistoryView.swift */,
 			);
 			path = "PEM Flow";
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92C3174028B8C36B00A268AA /* AddEntry.swift in Sources */,
+				927BC1BE28D269E8007A76D5 /* HistoryView.swift in Sources */,
 				92C3173228B8BD7E00A268AA /* Persistence.swift in Sources */,
 				92129D5728C12A370085C00A /* EntryManager.swift in Sources */,
 				92129D6128C4F8EA0085C00A /* ViewsStyles.swift in Sources */,

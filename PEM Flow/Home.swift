@@ -18,7 +18,9 @@ struct Home: View {
     @State private var isAddItemOpen = false
     //Todo décider si on part avec Core Caca ou CacaKit
    // @ObservedObject var entryManager : EntryManager
-
+    
+    private var mocDidSaved = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    @State private var dataRefreshing = false
     var body: some View {
         NavigationStack {
             List() {
@@ -29,24 +31,43 @@ struct Home: View {
                 }
                 
                 Section("Activities") {
-                    ActivityChart(seriesArray: items)
+                    ActivityChart(seriesArray: items, refreshed: dataRefreshing)
                         .frame(height: 300)
                         .padding(.horizontal)
                 }
                 NavigationLink(destination: {
-                    Text("History")
+                    HistoryView(items: items)
                 }, label: {
                     Label("History", systemImage: "clock.arrow.circlepath")
                 })
 
             }
+            .onChange(of: mocDidSaved, perform: { newValue in
+                dataRefreshing.toggle()
+            })
             .sheet(isPresented: $isAddItemOpen, content: {
                 AddEntry()
             })
             .toolbar(id: UUID().uuidString) {
-                ToolbarItem(id: "addEntry") {
+                
+                ToolbarItem(id: "addEntry", placement: .primaryAction) {
                     Button("Add entry for today") {
                         isAddItemOpen.toggle()
+                    }
+                }
+                ToolbarItem(id:"history") {
+                    NavigationLink(destination: {
+                        HistoryView(items: items)
+                    }, label: {
+                        Label("History", systemImage: "clock.arrow.circlepath")
+                    })
+                }
+                ToolbarItem(id: "Add Sample") {
+                    Button("Add samples") {
+                        EntryManager.generateSampleItems(number: 20, context: viewContext)
+                        if viewContext.hasChanges {
+                            try? viewContext.save()
+                        }
                     }
                 }
             }
@@ -80,7 +101,8 @@ struct Home_Previews: PreviewProvider {
 
 
 struct ActivityChart: View {
-    @State var seriesArray: FetchedResults<Entry>
+    var seriesArray: FetchedResults<Entry>
+    @State var refreshed: Bool
     var body: some View {
         Chart {
             ForEach(seriesArray) { entry in
@@ -128,6 +150,7 @@ struct ActivityChart: View {
                 .foregroundStyle(by: .value("Emotional Activity", "Emotional"))
             }
         }
+        .animation(.easeOut(duration: 0.3), value: refreshed)
         .chartForegroundStyleScale([
             "Physical": .green, "Emotional": .purple, "Mental": .pink, "Social": .yellow
         ])
@@ -139,7 +162,7 @@ struct ActivityChart: View {
 
 
 struct SymptomsChart: View {
-    @State var seriesArray: FetchedResults<Entry>
+    var seriesArray: FetchedResults<Entry>
     var body: some View {
         Chart {
             ForEach(seriesArray) { entry in
