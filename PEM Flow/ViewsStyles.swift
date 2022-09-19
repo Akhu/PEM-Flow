@@ -11,7 +11,7 @@ struct NumberTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(.largeTitle, design: .rounded, weight: .semibold))
-            .frame(width: 28)
+            .frame(width: 42)
     }
 }
 

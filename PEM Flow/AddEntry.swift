@@ -22,13 +22,19 @@ struct AddEntry: View {
     
     var body: some View {
         Form {
-            HStack {
-                Image(systemName: "calendar.badge.plus")
-                Text(Date(), formatter: todayDateFormat)
+            Section {
+                HStack {
+                    Image(systemName: "calendar.badge.plus")
+                    Text(Date(), formatter: todayDateFormat)
+                }
+            } header: {
+                Text("Aujourd'hui")
             }
-            Section("Activities ⚡️") {
+
+            
+            Section("Activités ⚡️") {
                 VStack(alignment: .leading) {
-                   Label("Physical Activity", systemImage: "figure.walk.circle.fill")
+                   Label("Physique", systemImage: "figure.walk.circle.fill")
                         .labelStyle(ColoredIconLabelStyle())
                         
                     HStack {
@@ -39,7 +45,7 @@ struct AddEntry: View {
                     }
                 }
                 VStack(alignment: .leading) {
-                    Label("Social Activity", systemImage: "figure.wave.circle.fill")
+                    Label("Social", systemImage: "figure.wave.circle.fill")
                          .labelStyle(ColoredIconLabelStyle())
                     HStack {
                         Slider(value: $entryManager.socialActivity, in: 0...10, step: 1)
@@ -50,7 +56,7 @@ struct AddEntry: View {
                     
                 }
                 VStack(alignment: .leading) {
-                    Label("Cognitive Activity", systemImage: "graduationcap.circle.fill")
+                    Label("Cognitive", systemImage: "graduationcap.circle.fill")
                          .labelStyle(ColoredIconLabelStyle())
 
                     HStack {
@@ -61,7 +67,7 @@ struct AddEntry: View {
                     }
                 }
                 VStack(alignment: .leading) {
-                    Label("Emotional Activity", systemImage: "heart.circle.fill")
+                    Label("Émotionnelle", systemImage: "heart.circle.fill")
                          .labelStyle(ColoredIconLabelStyle())
                     
                     HStack {
@@ -72,16 +78,16 @@ struct AddEntry: View {
                     }
                 }
             }
-            Section("Symptoms ❤️‍🩹") {
+            Section("Symptômes ❤️‍🩹") {
                 VStack(alignment: .leading) {
-                    Text("🛌 Good night sleep")
+                    Text("🛌 Sommeil réparateur ?")
                         .modifier(DataElementTitleTextStyle())
                     Picker("", selection: $entryManager.goodSleep, content: {
                         Text("Yes").tag(true)
                         Text("No").tag(false)
                     })
                     .pickerStyle(SegmentedPickerStyle())
-                    Text("Simple yes or no response pertaining to the night of sleep the evening prior")
+                    Text("Réponse simple oui ou non si votre nuit à été reposante ou non")
                         .modifier(DescriptionTextStyle())
                 }
                 VStack(alignment: .leading) {
@@ -94,7 +100,7 @@ struct AddEntry: View {
                     }
                 }
                 VStack(alignment: .leading) {
-                    Text("🤕 Pain")
+                    Text("🤕 Douleurs")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
                         Slider(value: $entryManager.globalPain, in: 0...10, step: 1)
@@ -103,7 +109,7 @@ struct AddEntry: View {
                     }
                 }
                 VStack(alignment: .leading) {
-                    Text("😵‍💫 Gut and Digestive issues")
+                    Text("😵‍💫 Problèmes digestifs")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
                         Slider(value: $entryManager.gutPain, in: 0...10, step: 1)
@@ -113,7 +119,7 @@ struct AddEntry: View {
                     }
                 }
                 VStack(alignment: .leading) {
-                    Text("😶‍🌫️ Neurological issues")
+                    Text("😶‍🌫️ Brouillard mental")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
                         Slider(value: $entryManager.neurologicalPain, in: 0...10, step: 1)
@@ -122,21 +128,21 @@ struct AddEntry: View {
                     }
                 }
             }
-            Section("How was your day?") {
+            Section("Votre journée") {
                 VStack(alignment: .leading) {
-                    Text("😖 Had a crash today ?")
+                    Text("😖 Avez vous eu un crash ?")
                         .modifier(DataElementTitleTextStyle())
                     Picker("", selection: $entryManager.crash, content: {
-                        Text("Yes")
+                        Text("Oui")
                             .tag(true)
-                        Text("No").tag(false)
+                        Text("Non").tag(false)
                     })
                     .pickerStyle(SegmentedPickerStyle())
                     Spacer()
-                    Text("A crash refers to a significant set-back in ability to perform daily functions. It represents a temporary worsening of symptoms. Simple yes or no response.")
+                    Text("Un crash fait référence à un recul significatif de la capacité à effectuer les tâches quotidiennes. Elle représente une aggravation temporaire des symptômes. Réponse simple oui ou non.")
                         .modifier(DescriptionTextStyle())
                     Divider().padding(.bottom)
-                    Text("🌈 Notes")
+                    Text("🌈 Journal")
                         .modifier(DataElementTitleTextStyle())
                     
                     TextEditor(text: $entryManager.notes)
@@ -148,12 +154,12 @@ struct AddEntry: View {
                         
                         
                     Spacer()
-                    Text("Set your mind free before bed by writing how do you feel? What happened special (or not) today? Being grateful for the good moments also help recovering.")
+                    Text("Libérez votre esprit avant de vous coucher en écrivant comment vous sentez-vous ? Que s'est-il passé de spécial (ou pas) aujourd'hui ? Reconnaître les bons moments aide aussi à récupérer.")
                         .modifier(DescriptionTextStyle())
                         
                 }.padding(.vertical)
             }
-            Section("Save") {
+            Section("Enregistrer") {
                 VStack(alignment: .leading) {
                     Button(action: {
                         entryManager.saveEntry(moc: viewContext)
@@ -162,14 +168,14 @@ struct AddEntry: View {
                         HStack {
                             Spacer()
                             Image(systemName: "pin.square.fill")
-                            Text("Save entry for today")
+                            Text("Sauvegarder pour aujourd'hui")
                                 .font(.headline)
                             Spacer()
                         }.padding(.vertical, 6)
                     })
                     .buttonStyle(BorderedProminentButtonStyle())
                     Spacer()
-                    Text("This will add an entry for today, you can add one entry per day, if necessary you can delete this entry in the history section and re-recrate one")
+                    Text("Cela ajoutera une entrée pour aujourd'hui, vous pouvez ajouter une entrée par jour, si nécessaire vous pouvez supprimer cette entrée dans la section historique et en recréer une")
                         .modifier(DescriptionTextStyle())
                 }.padding(.vertical)
             }

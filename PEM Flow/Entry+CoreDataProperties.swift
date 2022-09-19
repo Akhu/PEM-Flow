@@ -40,6 +40,14 @@ extension Entry {
     public override func awakeFromInsert() {
         setPrimitiveValue(NSDate(), forKey: "createdAt")
     }
+    
+    var averageActivity: Double {
+        return Double((physicalActivity + mentalActivity + emotionalActivity + socialActivity) / 4)
+    }
+    
+    var averageSymptoms: Double {
+        return Double((fatigue + gutPain + globalPain + neurologicalPain) / 4)
+    }
 }
 
 extension Entry : Identifiable {

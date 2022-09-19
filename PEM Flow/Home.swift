@@ -16,8 +16,6 @@ struct Home: View {
         animation: .easeInOut(duration: 0.4)) var items: FetchedResults<Entry>
 
     @State private var isAddItemOpen = false
-    //Todo décider si on part avec Core Caca ou CacaKit
-   // @ObservedObject var entryManager : EntryManager
     
     private var mocDidSaved = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     @State private var dataRefreshing = false
@@ -48,28 +46,28 @@ struct Home: View {
                                         .font(.system(size: 8))
                                 })
                                 .opacity(0)
-                                .foregroundStyle(by: .value("Crash 🔥", "Crash 🔥"))
+                                .foregroundStyle(by: .value("Crash ☠️", "Crash ☠️"))
                             }
                         }
                     }
                     .chartForegroundStyleScale([
-                        "Fatigue": .yellow, "Crash 🔥": .red
+                        "Fatigue": .purple, "Crash ☠️": .red
                     ])
                     .frame(height: 100)
                     .padding(.horizontal)
                     .padding(.top, 24)
                 }
-                Section("Symptoms") {
-                    SymptomsChart(seriesArray: items)
+                Section("Symptômes et Activités") {
+                    AverageChart(seriesArray: items, refreshed: dataRefreshing)
                     .frame(height: 300)
                     .padding(.horizontal)
                 }
                 
-                Section("Activities") {
-                    ActivityChart(seriesArray: items, refreshed: dataRefreshing)
-                        .frame(height: 300)
-                        .padding(.horizontal)
-                }
+//                Section("Activities") {
+//                    ActivityChart(seriesArray: items, refreshed: dataRefreshing)
+//                        .frame(height: 300)
+//                        .padding(.horizontal)
+//                }
                 NavigationLink(destination: {
                     HistoryView(items: items)
                 }, label: {
@@ -139,6 +137,84 @@ struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
+
+struct AverageChart: View {
+    var seriesArray: FetchedResults<Entry>
+    @State var refreshed: Bool
+    @State var highlightedActivity = true
+    @State var highlightedSymptoms = true
+    @State var displayCrash = false
+    var body: some View {
+        VStack {
+            Chart {
+                ForEach(seriesArray) { entry in
+                    LineMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.averageActivity)
+                    )
+                    .foregroundStyle(by: .value("Symptômes", "Symptômes"))
+                    LineMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.averageSymptoms)
+                    )
+                    .foregroundStyle(by: .value("Activités", "Activités"))
+                   
+                    if entry.crash {
+                        PointMark(
+                            x: .value("Date", entry.createdAt), y: .value("Crash", 5)
+                        )
+                        .annotation(position: .overlay , content: {
+                            Text(displayCrash ? "☠️" : "")
+                                .font(.system(size: 12))
+                        })
+                        .opacity(0)
+                        .foregroundStyle(by: .value("Crash ☠️", "Crash ☠️"))
+                    }
+                    PointMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.averageActivity)
+                    )
+                    .foregroundStyle(by: .value("Symptômes", "Symptômes"))
+                    PointMark(
+                        x: .value("Date", entry.createdAt),
+                        y: .value("Level", entry.averageSymptoms)
+                    )
+                    .foregroundStyle(by: .value("Activités", "Activités"))
+                }
+            }
+            .animation(.easeOut(duration: 0.3), value: refreshed)
+            .chartForegroundStyleScale([
+                "Activités": .green.opacity(highlightedActivity ? 1 : 0.3), "Symptômes": .pink.opacity(highlightedSymptoms ? 1 : 0.3), "Crash ☠️" : .yellow
+            ])
+        .chartYAxisLabel("Activités & Symptômes")
+            
+            VStack {
+                
+                Button("Afficher les crash ☠️") {
+                    displayCrash.toggle()
+                }
+                .buttonStyle( BorderedProminentButtonStyle())
+                .tint(displayCrash ? .yellow : .secondary)
+                .frame(maxWidth: .infinity)
+                
+                    Button("Activités") {
+                        highlightedActivity.toggle()
+                    }
+                    .buttonStyle( BorderedProminentButtonStyle())
+                    .tint(highlightedActivity ? .green : .secondary)
+                    .frame(maxWidth: .infinity)
+                
+                    Button("Symptômes") {
+                        highlightedSymptoms.toggle()
+                    }
+                    .buttonStyle( BorderedProminentButtonStyle())
+                    .tint(highlightedSymptoms ? .pink : .secondary)
+            }.frame(maxWidth: .infinity)
+        }.frame(maxWidth: .infinity)
+        
+        
     }
 }
 
