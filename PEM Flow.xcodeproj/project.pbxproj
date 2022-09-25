@@ -21,6 +21,10 @@
 		92C3173C28B8BE8E00A268AA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173B28B8BE8E00A268AA /* Home.swift */; };
 		92C3173E28B8BFCE00A268AA /* DataStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173D28B8BFCE00A268AA /* DataStructure.swift */; };
 		92C3174028B8C36B00A268AA /* AddEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173F28B8C36B00A268AA /* AddEntry.swift */; };
+		92F63BC128E071110098748F /* FatigueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC028E071110098748F /* FatigueChart.swift */; };
+		92F63BC428E0DBAC0098748F /* SymptomsComparisonChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */; };
+		92F63BC628E0E6050098748F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC528E0E6050098748F /* Dashboard.swift */; };
+		92F63BC828E0EB730098748F /* AverageSymptomsActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC728E0EB730098748F /* AverageSymptomsActivityChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,10 @@
 		92C3173B28B8BE8E00A268AA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		92C3173D28B8BFCE00A268AA /* DataStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructure.swift; sourceTree = "<group>"; };
 		92C3173F28B8C36B00A268AA /* AddEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntry.swift; sourceTree = "<group>"; };
+		92F63BC028E071110098748F /* FatigueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatigueChart.swift; sourceTree = "<group>"; };
+		92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsComparisonChart.swift; sourceTree = "<group>"; };
+		92F63BC528E0E6050098748F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		92F63BC728E0EB730098748F /* AverageSymptomsActivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageSymptomsActivityChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,7 @@
 		92C3172728B8BD7C00A268AA /* PEM Flow */ = {
 			isa = PBXGroup;
 			children = (
+				92F63BC228E071160098748F /* Charts */,
 				92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */,
 				92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */,
 				92C3173F28B8C36B00A268AA /* AddEntry.swift */,
@@ -85,6 +94,7 @@
 				92129D5628C12A370085C00A /* EntryManager.swift */,
 				92129D6028C4F8EA0085C00A /* ViewsStyles.swift */,
 				927BC1BD28D269E8007A76D5 /* HistoryView.swift */,
+				92F63BC528E0E6050098748F /* Dashboard.swift */,
 			);
 			path = "PEM Flow";
 			sourceTree = "<group>";
@@ -95,6 +105,16 @@
 				92C3172F28B8BD7E00A268AA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		92F63BC228E071160098748F /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				92F63BC028E071110098748F /* FatigueChart.swift */,
+				92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */,
+				92F63BC728E0EB730098748F /* AverageSymptomsActivityChart.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,13 +192,17 @@
 				92C3173228B8BD7E00A268AA /* Persistence.swift in Sources */,
 				92129D5728C12A370085C00A /* EntryManager.swift in Sources */,
 				92129D6128C4F8EA0085C00A /* ViewsStyles.swift in Sources */,
+				92F63BC428E0DBAC0098748F /* SymptomsComparisonChart.swift in Sources */,
 				92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */,
+				92F63BC628E0E6050098748F /* Dashboard.swift in Sources */,
 				92129D5F28C12E5A0085C00A /* Entry+CoreDataProperties.swift in Sources */,
 				92129D5E28C12E5A0085C00A /* Entry+CoreDataClass.swift in Sources */,
 				92C3173C28B8BE8E00A268AA /* Home.swift in Sources */,
 				92C3173E28B8BFCE00A268AA /* DataStructure.swift in Sources */,
 				92C3173528B8BD7E00A268AA /* PEM_Flow.xcdatamodeld in Sources */,
+				92F63BC128E071110098748F /* FatigueChart.swift in Sources */,
 				92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */,
+				92F63BC828E0EB730098748F /* AverageSymptomsActivityChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +331,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PEM Flow/Preview Content\"";
-				DEVELOPMENT_TEAM = MKCTX8C9MY;
+				DEVELOPMENT_TEAM = NY3J9KV3S9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -336,7 +360,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PEM Flow/Preview Content\"";
-				DEVELOPMENT_TEAM = MKCTX8C9MY;
+				DEVELOPMENT_TEAM = NY3J9KV3S9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

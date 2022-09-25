@@ -13,6 +13,8 @@ struct AddEntry: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
     
+    @Binding var dataRefreshed : Bool
+    
     private let todayDateFormat: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -163,6 +165,7 @@ struct AddEntry: View {
                 VStack(alignment: .leading) {
                     Button(action: {
                         entryManager.saveEntry(moc: viewContext)
+                        dataRefreshed.toggle()
                         presentationMode.wrappedValue.dismiss()
                     }, label: {
                         HStack {
@@ -189,7 +192,7 @@ struct AddEntry: View {
 struct AddEntry_Previews: PreviewProvider {
      
     static var previews: some View {
-        AddEntry(entryManager: EntryManager())
+        AddEntry(entryManager: EntryManager(), dataRefreshed: .constant(true))
             
     }
 }

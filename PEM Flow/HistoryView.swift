@@ -9,10 +9,9 @@ import SwiftUI
 
 struct HistoryView: View {
     @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)],
-//        animation: .default) var items: FetchedResults<Entry>
-    var items: FetchedResults<Entry>
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)],
+        animation: .easeInOut(duration: 0.4)) var items: FetchedResults<Entry>
     var body: some View {
         List {
             Text("Items Count \(items.count)")
@@ -22,6 +21,17 @@ struct HistoryView: View {
             .onDelete(perform: removeRows)
         }.toolbar {
             EditButton()
+           
+        }
+        .toolbar {
+            ToolbarItem(id: "removeAll") {
+                Button("Remove All") {
+                    items.forEach { entry in
+                        moc.delete(entry)
+                    }
+                    try? moc.save()
+                }
+            }
         }
     }
     
