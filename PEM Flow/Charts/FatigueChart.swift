@@ -11,7 +11,9 @@ import Charts
 struct FatigueChart: View {
     var items: FetchedResults<Entry>
     
-    @State var displayAverage = false
+    @State var displayAverageSymptoms = false
+    @State var displayAverageActivity = false
+    @State var displaySleep = false
     @State var highlightedSymptoms = true
     @Binding var displayCrash: Bool
     
@@ -27,23 +29,37 @@ struct FatigueChart: View {
         VStack {
             Chart {
                 ForEach(items) { entry in
-                    if displayAverage {
-                        RuleMark(
-                            y: .value("Average", averageFatigue)
-                        )
-                        .lineStyle(StrokeStyle(lineWidth: 3))
-                        .annotation(position: .top) {
-                            Text("Fatigue moyenne : \(averageFatigue, specifier: "%.1f") / 10")
-                        }
-                        .foregroundStyle(by: .value("Average", "Average"))
-                    }
                     BarMark(
                         x: .value("Date", entry.createdAt),
                         y: .value("Level", entry.fatigue),
-                        width: 12                        
+                        width: 12
                     )
-                    .foregroundStyle(displayAverage ? .gray.opacity(0.5) : .purple)
+                    .foregroundStyle(displayAverageSymptoms || displayAverageActivity ? .gray.opacity(0.5) : .pink)
+                    if displayAverageSymptoms {
+                        LineMark(
+                            x: .value("Date", entry.createdAt),
+                            y: .value("Average Symptoms", entry.averageSymptomsWithoutFatigue)
+                        )
+                        .lineStyle(StrokeStyle(lineWidth: 3))
+//                        .annotation(position: .top) {
+//                            Text("Fatigue moyenne : \(averageFatigue, specifier: "%.1f") / 10")
+//                        }
+                        .foregroundStyle(.yellow)
+                    }
+                    if displayAverageActivity {
+                        LineMark(
+                            x: .value("Date", entry.createdAt),
+                            y: .value("Average Activity", entry.averageActivity)
+                        )
+                        .lineStyle(StrokeStyle(lineWidth: 3))
+//                        .annotation(position: .top) {
+//                            Text("Fatigue moyenne : \(averageFatigue, specifier: "%.1f") / 10")
+//                        }
+                        .foregroundStyle(by: .value("Average Activity", "Average Activity"))
+                    }
+                    
                     //.foregroundStyle(by: .value("Fatigue level", "Fatigue"))
+
                     if entry.crash && displayCrash {
                         PointMark(
                             x: .value("Date", entry.createdAt), y: .value("Crash", entry.fatigue)
@@ -55,28 +71,41 @@ struct FatigueChart: View {
                         .opacity(0)
                         .foregroundStyle(by: .value("Crash 💥", "Crash 💥"))
                     }
-                }
+                }.interpolationMethod(InterpolationMethod.catmullRom(alpha: 0.2))
             }
             
             .chartYScale(domain: 0...10)
             .chartForegroundStyleScale([
-                "Fatigue": .purple, "Crash 💥": .red, "Average": .purple
+                "Fatigue": .pink, "Crash 💥": .red, "Average Symptoms": .yellow, "Average Activity": .green
         ])
             
             VStack {
-                
-                
                 Button {
-                    displayAverage.toggle()
+                    displayAverageActivity.toggle()
                 } label: {
                     HStack {
-                        Image(systemName: "plus.forwardslash.minus")
+                        Image(systemName: "figure.walk.circle.fill")
                         Spacer()
-                        Text("Moyenne")
+                        Text("Activité")
+                            .fontWeight(.bold)
                             .padding(.vertical, 4)
                     }
                 }.buttonStyle( BorderedProminentButtonStyle())
-                    .tint(displayAverage ? .purple : .purple.opacity(0.3))
+                    .tint(displayAverageActivity ? .green : .gray)
+                .frame(maxWidth: .infinity)
+                
+                Button {
+                    displayAverageSymptoms.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "cross.case.fill")
+                        Spacer()
+                        Text("Symptômes")
+                            .fontWeight(.bold)
+                            .padding(.vertical, 4)
+                    }
+                }.buttonStyle( BorderedProminentButtonStyle())
+                    .tint(displayAverageSymptoms ? .yellow : .gray)
                 .frame(maxWidth: .infinity)
             }.frame(maxWidth: .infinity)
         }

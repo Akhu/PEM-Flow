@@ -24,15 +24,16 @@ struct Dashboard: View {
                 HStack {
                     Text("💥")
                     Spacer()
-                    Text("Crashs")
+                    Text("Afficher mes crashs")
                         .padding(.vertical, 4)
                 }
             }
+            .listRowSeparator(.hidden)
             .buttonStyle( BorderedProminentButtonStyle())
-            .tint(displayCrash ? .red : .red.opacity(0.4))
+            .tint(displayCrash ? .red : .secondary)
             Section("Fatigue") {
                 FatigueChart(items: items, displayCrash: $displayCrash)
-                    .frame(height: 230)
+                    .frame(height: 300)
             }
             Section("Douleurs") {
                 SymptomsComparisonChart(items: items, displayCrash: $displayCrash)

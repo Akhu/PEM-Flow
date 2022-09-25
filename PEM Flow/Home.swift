@@ -50,13 +50,25 @@ struct Home: View {
                         Label("Comment était votre journée ?", systemImage: "list.bullet.clipboard.fill")
                     }
                 }
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Votre suivi")
+                        .fontWeight(.black)
+                    Text("En analysant les données, vous pourrez mieux adapter vos activités pour faire du pacing et éviter les crashs. Vérifiez quand ils apparaissent, quelles activités vous avez effectuées avant et quels symptomes sont révélateurs.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
                 if items.count > 0 {
-                    Section("Période") {
+                    VStack {
+                        
                         Picker("Periode", selection: $historySize) {
                             Text("2 semaines").tag(HistorySize.sinceTwoWeeks)
                             Text("Mois").tag(HistorySize.sinceAMonth)
                         }.pickerStyle(SegmentedPickerStyle())
+                    
                     }
+                    .listRowSeparator(.hidden)
+                    
+                        
                     Dashboard(startInterval: getHistorySizeAsStartInterval(), displayCrash: $displayCrash)
                         .animation(.easeInOut(duration: 0.4), value: historySize)
                 } else {

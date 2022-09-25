@@ -48,6 +48,10 @@ extension Entry {
     var averageSymptoms: Double {
         return Double((fatigue + gutPain + globalPain + neurologicalPain) / 4)
     }
+    
+    var averageSymptomsWithoutFatigue : Double {
+        return Double((gutPain + globalPain + neurologicalPain) / 3)
+    }
 }
 
 extension Entry : Identifiable {
