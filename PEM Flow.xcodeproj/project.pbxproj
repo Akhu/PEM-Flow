@@ -11,6 +11,13 @@
 		92129D5E28C12E5A0085C00A /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */; };
 		92129D5F28C12E5A0085C00A /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */; };
 		92129D6128C4F8EA0085C00A /* ViewsStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92129D6028C4F8EA0085C00A /* ViewsStyles.swift */; };
+		921BBB8C29577C6D00D71DD6 /* ActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921BBB8B29577C6D00D71DD6 /* ActivityChart.swift */; };
+		921BBB8E29577C9600D71DD6 /* SymptomsChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921BBB8D29577C9600D71DD6 /* SymptomsChart.swift */; };
+		925A2EA72964D9AD00FB6B7B /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 925A2EA62964D9AD00FB6B7B /* CodableCSV */; };
+		925A2EA92964D9CF00FB6B7B /* CSVImporterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EA82964D9CF00FB6B7B /* CSVImporterView.swift */; };
+		925A2EAB2964DA7000FB6B7B /* CSVFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EAA2964DA7000FB6B7B /* CSVFileManager.swift */; };
+		925A2EB02964E35900FB6B7B /* PEMFLOW.csv in Resources */ = {isa = PBXBuildFile; fileRef = 925A2EAF2964E35900FB6B7B /* PEMFLOW.csv */; };
+		925A2EB22964E79800FB6B7B /* PEMFLOW_CLEAN.csv in Resources */ = {isa = PBXBuildFile; fileRef = 925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */; };
 		927BC1BE28D269E8007A76D5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BC1BD28D269E8007A76D5 /* HistoryView.swift */; };
 		92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */; };
 		92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172A28B8BD7C00A268AA /* ContentView.swift */; };
@@ -20,7 +27,7 @@
 		92C3173528B8BD7E00A268AA /* PEM_Flow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173328B8BD7E00A268AA /* PEM_Flow.xcdatamodeld */; };
 		92C3173C28B8BE8E00A268AA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173B28B8BE8E00A268AA /* Home.swift */; };
 		92C3173E28B8BFCE00A268AA /* DataStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173D28B8BFCE00A268AA /* DataStructure.swift */; };
-		92C3174028B8C36B00A268AA /* AddEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173F28B8C36B00A268AA /* AddEntry.swift */; };
+		92C3174028B8C36B00A268AA /* EditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173F28B8C36B00A268AA /* EditEntry.swift */; };
 		92F63BC128E071110098748F /* FatigueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC028E071110098748F /* FatigueChart.swift */; };
 		92F63BC428E0DBAC0098748F /* SymptomsComparisonChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */; };
 		92F63BC628E0E6050098748F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC528E0E6050098748F /* Dashboard.swift */; };
@@ -32,6 +39,12 @@
 		92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		92129D6028C4F8EA0085C00A /* ViewsStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsStyles.swift; sourceTree = "<group>"; };
+		921BBB8B29577C6D00D71DD6 /* ActivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChart.swift; sourceTree = "<group>"; };
+		921BBB8D29577C9600D71DD6 /* SymptomsChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsChart.swift; sourceTree = "<group>"; };
+		925A2EA82964D9CF00FB6B7B /* CSVImporterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVImporterView.swift; sourceTree = "<group>"; };
+		925A2EAA2964DA7000FB6B7B /* CSVFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFileManager.swift; sourceTree = "<group>"; };
+		925A2EAF2964E35900FB6B7B /* PEMFLOW.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PEMFLOW.csv; sourceTree = "<group>"; };
+		925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PEMFLOW_CLEAN.csv; sourceTree = "<group>"; };
 		927BC1BD28D269E8007A76D5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		92C3172528B8BD7C00A268AA /* PEM Flow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PEM Flow.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEM_FlowApp.swift; sourceTree = "<group>"; };
@@ -42,7 +55,7 @@
 		92C3173428B8BD7E00A268AA /* PEM_Flow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PEM_Flow.xcdatamodel; sourceTree = "<group>"; };
 		92C3173B28B8BE8E00A268AA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		92C3173D28B8BFCE00A268AA /* DataStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructure.swift; sourceTree = "<group>"; };
-		92C3173F28B8C36B00A268AA /* AddEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntry.swift; sourceTree = "<group>"; };
+		92C3173F28B8C36B00A268AA /* EditEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEntry.swift; sourceTree = "<group>"; };
 		92F63BC028E071110098748F /* FatigueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatigueChart.swift; sourceTree = "<group>"; };
 		92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsComparisonChart.swift; sourceTree = "<group>"; };
 		92F63BC528E0E6050098748F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
@@ -54,12 +67,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				925A2EA72964D9AD00FB6B7B /* CodableCSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		925A2EA22964D92300FB6B7B /* FileMocks */ = {
+			isa = PBXGroup;
+			children = (
+				925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */,
+				925A2EAF2964E35900FB6B7B /* PEMFLOW.csv */,
+			);
+			path = FileMocks;
+			sourceTree = "<group>";
+		};
+		925A2EAC2964DA7600FB6B7B /* CSV */ = {
+			isa = PBXGroup;
+			children = (
+				925A2EA82964D9CF00FB6B7B /* CSVImporterView.swift */,
+				925A2EAA2964DA7000FB6B7B /* CSVFileManager.swift */,
+			);
+			path = CSV;
+			sourceTree = "<group>";
+		};
 		92C3171C28B8BD7C00A268AA = {
 			isa = PBXGroup;
 			children = (
@@ -79,10 +111,12 @@
 		92C3172728B8BD7C00A268AA /* PEM Flow */ = {
 			isa = PBXGroup;
 			children = (
+				925A2EAC2964DA7600FB6B7B /* CSV */,
+				925A2EA22964D92300FB6B7B /* FileMocks */,
 				92F63BC228E071160098748F /* Charts */,
 				92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */,
 				92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */,
-				92C3173F28B8C36B00A268AA /* AddEntry.swift */,
+				92C3173F28B8C36B00A268AA /* EditEntry.swift */,
 				92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */,
 				92C3173B28B8BE8E00A268AA /* Home.swift */,
 				92C3172A28B8BD7C00A268AA /* ContentView.swift */,
@@ -113,6 +147,8 @@
 				92F63BC028E071110098748F /* FatigueChart.swift */,
 				92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */,
 				92F63BC728E0EB730098748F /* AverageSymptomsActivityChart.swift */,
+				921BBB8B29577C6D00D71DD6 /* ActivityChart.swift */,
+				921BBB8D29577C9600D71DD6 /* SymptomsChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -133,6 +169,9 @@
 			dependencies = (
 			);
 			name = "PEM Flow";
+			packageProductDependencies = (
+				925A2EA62964D9AD00FB6B7B /* CodableCSV */,
+			);
 			productName = "PEM Flow";
 			productReference = 92C3172528B8BD7C00A268AA /* PEM Flow.app */;
 			productType = "com.apple.product-type.application";
@@ -161,6 +200,9 @@
 				Base,
 			);
 			mainGroup = 92C3171C28B8BD7C00A268AA;
+			packageReferences = (
+				925A2EA52964D9AD00FB6B7B /* XCRemoteSwiftPackageReference "CodableCSV" */,
+			);
 			productRefGroup = 92C3172628B8BD7C00A268AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -175,8 +217,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				925A2EB02964E35900FB6B7B /* PEMFLOW.csv in Resources */,
 				92C3173028B8BD7E00A268AA /* Preview Assets.xcassets in Resources */,
 				92C3172D28B8BD7E00A268AA /* Assets.xcassets in Resources */,
+				925A2EB22964E79800FB6B7B /* PEMFLOW_CLEAN.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,11 +231,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92C3174028B8C36B00A268AA /* AddEntry.swift in Sources */,
+				92C3174028B8C36B00A268AA /* EditEntry.swift in Sources */,
 				927BC1BE28D269E8007A76D5 /* HistoryView.swift in Sources */,
+				925A2EAB2964DA7000FB6B7B /* CSVFileManager.swift in Sources */,
 				92C3173228B8BD7E00A268AA /* Persistence.swift in Sources */,
 				92129D5728C12A370085C00A /* EntryManager.swift in Sources */,
+				921BBB8E29577C9600D71DD6 /* SymptomsChart.swift in Sources */,
+				921BBB8C29577C6D00D71DD6 /* ActivityChart.swift in Sources */,
 				92129D6128C4F8EA0085C00A /* ViewsStyles.swift in Sources */,
+				925A2EA92964D9CF00FB6B7B /* CSVImporterView.swift in Sources */,
 				92F63BC428E0DBAC0098748F /* SymptomsComparisonChart.swift in Sources */,
 				92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */,
 				92F63BC628E0E6050098748F /* Dashboard.swift in Sources */,
@@ -331,7 +379,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PEM Flow/Preview Content\"";
-				DEVELOPMENT_TEAM = NY3J9KV3S9;
+				DEVELOPMENT_TEAM = MKCTX8C9MY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -360,7 +408,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PEM Flow/Preview Content\"";
-				DEVELOPMENT_TEAM = NY3J9KV3S9;
+				DEVELOPMENT_TEAM = MKCTX8C9MY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -403,6 +451,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		925A2EA52964D9AD00FB6B7B /* XCRemoteSwiftPackageReference "CodableCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dehesa/CodableCSV";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		925A2EA62964D9AD00FB6B7B /* CodableCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 925A2EA52964D9AD00FB6B7B /* XCRemoteSwiftPackageReference "CodableCSV" */;
+			productName = CodableCSV;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		92C3173328B8BD7E00A268AA /* PEM_Flow.xcdatamodeld */ = {

@@ -4,10 +4,9 @@
 //
 //  Created by Anthony Da cruz on 26/08/2022.
 //
-
 import SwiftUI
 
-struct AddEntry: View {
+struct EditEntry: View {
     
     @ObservedObject var entryManager = EntryManager()
     @Environment(\.presentationMode) var presentationMode
@@ -85,8 +84,8 @@ struct AddEntry: View {
                     Text("🛌 Sommeil réparateur ?")
                         .modifier(DataElementTitleTextStyle())
                     Picker("", selection: $entryManager.goodSleep, content: {
-                        Text("Yes").tag(true)
-                        Text("No").tag(false)
+                        Text("Oui").tag(true)
+                        Text("Non").tag(false)
                     })
                     .pickerStyle(SegmentedPickerStyle())
                     Text("Réponse simple oui ou non si votre nuit à été reposante ou non")
@@ -189,10 +188,10 @@ struct AddEntry: View {
     
 }
 
-struct AddEntry_Previews: PreviewProvider {
+struct EditEntry_Previews: PreviewProvider {
      
     static var previews: some View {
-        AddEntry(entryManager: EntryManager(), dataRefreshed: .constant(true))
+        EditEntry(entryManager: EntryManager(), dataRefreshed: .constant(true))
             
     }
 }

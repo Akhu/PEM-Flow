@@ -45,6 +45,10 @@ struct FatigueChart: View {
 //                            Text("Fatigue moyenne : \(averageFatigue, specifier: "%.1f") / 10")
 //                        }
                         .foregroundStyle(.yellow)
+                        PointMark(
+                            x: .value("Date", entry.createdAt),
+                            y: .value("Average Symptoms", entry.averageSymptomsWithoutFatigue)
+                        ).foregroundStyle(.yellow)
                     }
                     if displayAverageActivity {
                         LineMark(
@@ -56,6 +60,10 @@ struct FatigueChart: View {
 //                            Text("Fatigue moyenne : \(averageFatigue, specifier: "%.1f") / 10")
 //                        }
                         .foregroundStyle(by: .value("Average Activity", "Average Activity"))
+                        PointMark(
+                            x: .value("Date", entry.createdAt),
+                            y: .value("Average Activity", entry.averageActivity)
+                        ).foregroundStyle(.green)
                     }
                     
                     //.foregroundStyle(by: .value("Fatigue level", "Fatigue"))

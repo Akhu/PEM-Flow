@@ -21,7 +21,6 @@ struct HistoryView: View {
             .onDelete(perform: removeRows)
         }.toolbar {
             EditButton()
-           
         }
         .toolbar {
             ToolbarItem(id: "removeAll") {
@@ -45,8 +44,10 @@ struct HistoryView: View {
     }
 }
 
-//struct HistoryView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HistoryView(items: <#T##FetchedResults<Entry>#>)
-//    }
-//}
+struct HistoryView_Previews: PreviewProvider {
+    @Environment(\.managedObjectContext) var moc
+    static var previews: some View {
+        HistoryView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}

@@ -7,7 +7,8 @@
 
 import SwiftUI
 import Charts
-
+import Foundation
+import UniformTypeIdentifiers
 
 enum HistorySize {
     case sinceTwoWeeks, sinceAMonth
@@ -19,6 +20,7 @@ struct Home: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var isAddItemOpen = false
+    @State var isImportingFile = false
         
     private var mocDidSaved = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     @State private var dataRefreshing = false
@@ -44,6 +46,14 @@ struct Home: View {
             List() {
                
                 Section("Today") {
+                    Button {
+                        isImportingFile.toggle()
+                    } label: {
+                        Label("Importer les données depuis un tableur", systemImage: "")
+                    }.sheet(isPresented: $isImportingFile) {
+                        CSVImporterView()
+                    }
+                    
                     Button {
                         isAddItemOpen.toggle()
                     } label: {
@@ -95,7 +105,7 @@ struct Home: View {
                 dataRefreshing.toggle()
             })
             .sheet(isPresented: $isAddItemOpen, content: {
-                AddEntry(dataRefreshed: $dataRefreshing)
+                EditEntry(dataRefreshed: $dataRefreshing)
             })
             .toolbar(id: UUID().uuidString) {
                 
@@ -118,6 +128,24 @@ struct Home: View {
                             try? viewContext.save()
                         }
                     }
+                }
+            }
+            .fileImporter(
+                isPresented: .constant(false),
+                allowedContentTypes: [UTType.plainText, UTType.commaSeparatedText],
+                allowsMultipleSelection: false
+            ) { result in
+                do {
+                    guard let selectedFile: URL = try result.get().first else { return }
+                    guard selectedFile.startAccessingSecurityScopedResource() else { return }
+                    
+                    guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                    
+                    //document.message = message
+                    
+                    selectedFile.stopAccessingSecurityScopedResource()
+                } catch {
+                    Swift.print(error.localizedDescription)
                 }
             }
             .navigationTitle("PEM Flow")
@@ -147,122 +175,3 @@ struct Home_Previews: PreviewProvider {
     }
 }
 
-
-struct ActivityChart: View {
-    var seriesArray: FetchedResults<Entry>
-    @State var refreshed: Bool
-    var body: some View {
-        Chart {
-            ForEach(seriesArray) { entry in
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.socialActivity)
-                )
-                .foregroundStyle(by: .value("Social Activity", "Social"))
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.mentalActivity)
-                )
-                .foregroundStyle(by: .value("Mental Activity", "Mental"))
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.physicalActivity)
-                )
-                .foregroundStyle(by: .value("Physical Activity", "Physical"))
-                LineMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.emotionalActivity)
-                )
-                .foregroundStyle(by: .value("Emotional Activity", "Emotional"))
-                
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.socialActivity)
-                )
-                .foregroundStyle(by: .value("Social Activity", "Social"))
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.mentalActivity)
-                )
-                .foregroundStyle(by: .value("Mental Activity", "Mental"))
-                
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.physicalActivity)
-                )
-                .foregroundStyle(by: .value("Physical Activity", "Physical"))
-                PointMark(
-                    x: .value("Date", entry.createdAt),
-                    y: .value("Level", entry.emotionalActivity)
-                )
-                .foregroundStyle(by: .value("Emotional Activity", "Emotional"))
-            }
-        }
-        .animation(.easeOut(duration: 0.3), value: refreshed)
-        .chartForegroundStyleScale([
-            "Physical": .green, "Emotional": .purple, "Mental": .pink, "Social": .yellow
-        ])
-        .chartYAxisLabel("Symptoms strength")
-        
-        
-    }
-}
-
-
-struct SymptomsChart: View {
-    var seriesArray: FetchedResults<Entry>
-    var body: some View {
-//        ScrollView(.horizontal){
-            Chart {
-                ForEach(seriesArray) { entry in
-                    LineMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.fatigue)
-                    )
-                    .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
-                    PointMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.fatigue)
-                    )
-                    .foregroundStyle(by: .value("Fatigue level", "Fatigue"))
-                    LineMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.gutPain)
-                    )
-                    .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
-                    PointMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.gutPain)
-                    )
-                    .foregroundStyle(by: .value("Gut Symptoms level", "Gut"))
-                    
-                    LineMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.neurologicalPain)
-                    )
-                    .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
-                    PointMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.neurologicalPain)
-                    )
-                    .foregroundStyle(by: .value("Gut Symptoms level", "Neurological"))
-                    
-                    LineMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.globalPain)
-                    )
-                    .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
-                    PointMark(
-                        x: .value("Date", entry.createdAt),
-                        y: .value("Level", entry.globalPain)
-                    )
-                    .foregroundStyle(by: .value("Gut Symptoms level", "Global"))
-                }
-            }
-            .chartForegroundStyleScale([
-                "Fatigue": .green, "Gut": .purple, "Global": .pink, "Neurological": .yellow
-            ])
-            .chartYAxisLabel("Symptoms strength")
-//        }
-    }
-}
