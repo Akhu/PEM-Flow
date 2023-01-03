@@ -27,6 +27,12 @@ class CSVFileManager: ObservableObject {
                 $0.delimiters.field = ","
                 $0.boolStrategy = .numeric
             }
+            //Todo :
+            //Check si entre 0 et 10
+            //Check si ligne complète (sinon pas import)
+            //Check si tout les champs
+            //Check si les headers sont bien écrits
+            //Notes optionnelles
             let result = try decoder.decode([RawTrackingData].self, from: rawData)
             self.dataFromCsvFile = result
         } catch {

@@ -16,8 +16,8 @@
 		925A2EA72964D9AD00FB6B7B /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 925A2EA62964D9AD00FB6B7B /* CodableCSV */; };
 		925A2EA92964D9CF00FB6B7B /* CSVImporterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EA82964D9CF00FB6B7B /* CSVImporterView.swift */; };
 		925A2EAB2964DA7000FB6B7B /* CSVFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EAA2964DA7000FB6B7B /* CSVFileManager.swift */; };
-		925A2EB02964E35900FB6B7B /* PEMFLOW.csv in Resources */ = {isa = PBXBuildFile; fileRef = 925A2EAF2964E35900FB6B7B /* PEMFLOW.csv */; };
 		925A2EB22964E79800FB6B7B /* PEMFLOW_CLEAN.csv in Resources */ = {isa = PBXBuildFile; fileRef = 925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */; };
+		925A2EB42964EC0800FB6B7B /* PEMFLOW_ERRORS.csv in Resources */ = {isa = PBXBuildFile; fileRef = 925A2EB32964EC0800FB6B7B /* PEMFLOW_ERRORS.csv */; };
 		927BC1BE28D269E8007A76D5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BC1BD28D269E8007A76D5 /* HistoryView.swift */; };
 		92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */; };
 		92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172A28B8BD7C00A268AA /* ContentView.swift */; };
@@ -43,8 +43,8 @@
 		921BBB8D29577C9600D71DD6 /* SymptomsChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsChart.swift; sourceTree = "<group>"; };
 		925A2EA82964D9CF00FB6B7B /* CSVImporterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVImporterView.swift; sourceTree = "<group>"; };
 		925A2EAA2964DA7000FB6B7B /* CSVFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFileManager.swift; sourceTree = "<group>"; };
-		925A2EAF2964E35900FB6B7B /* PEMFLOW.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PEMFLOW.csv; sourceTree = "<group>"; };
 		925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PEMFLOW_CLEAN.csv; sourceTree = "<group>"; };
+		925A2EB32964EC0800FB6B7B /* PEMFLOW_ERRORS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PEMFLOW_ERRORS.csv; sourceTree = "<group>"; };
 		927BC1BD28D269E8007A76D5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		92C3172528B8BD7C00A268AA /* PEM Flow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PEM Flow.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEM_FlowApp.swift; sourceTree = "<group>"; };
@@ -77,8 +77,8 @@
 		925A2EA22964D92300FB6B7B /* FileMocks */ = {
 			isa = PBXGroup;
 			children = (
+				925A2EB32964EC0800FB6B7B /* PEMFLOW_ERRORS.csv */,
 				925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */,
-				925A2EAF2964E35900FB6B7B /* PEMFLOW.csv */,
 			);
 			path = FileMocks;
 			sourceTree = "<group>";
@@ -217,9 +217,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				925A2EB02964E35900FB6B7B /* PEMFLOW.csv in Resources */,
 				92C3173028B8BD7E00A268AA /* Preview Assets.xcassets in Resources */,
 				92C3172D28B8BD7E00A268AA /* Assets.xcassets in Resources */,
+				925A2EB42964EC0800FB6B7B /* PEMFLOW_ERRORS.csv in Resources */,
 				925A2EB22964E79800FB6B7B /* PEMFLOW_CLEAN.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
