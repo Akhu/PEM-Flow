@@ -7,34 +7,62 @@
 
 import Foundation
 import CodableCSV
+
 class CSVFileManager: ObservableObject {
     @Published var dataFromCsvFile = [RawTrackingData]()
+    @Published var totalNumberOfRows = 0
+    @Published var totalNumberOfDroppedRows = 0
+    @Published var fileSelected = false
     
-    init() {
-        guard let fileURL = Bundle.main.url(forResource: "PEMFLOW_CLEAN", withExtension: "csv") else { return }
+    @Published var fileName = "Choisir un fichier"
+    
+    func importFile(result: Result<[URL], Error>) {
+        do {
+            guard let selectedFile: URL = try result.get().first else { return }
+            guard selectedFile.startAccessingSecurityScopedResource() else { return }
+            fileName = selectedFile.lastPathComponent
+            
+            //guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: "csv") else { return }
+            
+            guard let stringData = try? String(contentsOf: selectedFile) else { return }
+            
+            print(stringData)
+            
+            guard let rawData = try? Data(contentsOf: selectedFile) else { return }
+            selectedFile.stopAccessingSecurityScopedResource()
+            fileSelected = true
+            self.decodeCSV(rawData: rawData)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func decodeCSV(rawData: Data) {
         
-        print(fileURL)
-        
-        guard let stringData = try? String(contentsOf: fileURL) else { return }
-        
-        print(stringData)
-        
-        guard let rawData = try? Data(contentsOf: fileURL) else { return }
         
         do {
-            let decoder = CSVDecoder {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            let decoder = try CSVDecoder {
                 $0.headerStrategy = .firstLine
                 $0.delimiters.field = ","
                 $0.boolStrategy = .numeric
+                $0.bufferingStrategy = .sequential
+                $0.dateStrategy = .formatted(dateFormatter)
+            }.lazy(from: rawData)
+            
+            var droppedRows = 0
+            
+            self.dataFromCsvFile = decoder.compactMap { element in
+                self.totalNumberOfRows += 1
+                let rowData = try? element.decode(RawTrackingData.self)
+                
+                if rowData == nil || (rowData?.validateTrackingData() ?? false) == false {
+                    self.totalNumberOfDroppedRows += 1
+                    return nil
+                }
+                return rowData
             }
-            //Todo :
-            //Check si entre 0 et 10
-            //Check si ligne complète (sinon pas import)
-            //Check si tout les champs
-            //Check si les headers sont bien écrits
-            //Notes optionnelles
-            let result = try decoder.decode([RawTrackingData].self, from: rawData)
-            self.dataFromCsvFile = result
         } catch {
             print(error)
         }
@@ -42,7 +70,7 @@ class CSVFileManager: ObservableObject {
 }
 
 struct RawTrackingData: Codable {
-    let createdAt: String
+    let createdAt: Date
     let physicalActivity: Int16
     let socialActivity: Int16?
     let mentalActivity: Int16
@@ -54,7 +82,18 @@ struct RawTrackingData: Codable {
     let neurologicalPain: Int16
     let crash: Bool
     let notes: String?
-
+    
+    
+    func validateTrackingData() -> Bool {
+        let reflection = Mirror(reflecting: self)
+        return reflection.children.allSatisfy({ label, value in
+            if let valueIsNumber = value as? Int16, (valueIsNumber > 10 || valueIsNumber < 0) {
+                return false
+            }
+            return true
+        })
+    }
+    
     enum CodingKeys: String, CodingKey {
         case createdAt = "date"
         case physicalActivity = "act physique"
@@ -69,4 +108,12 @@ struct RawTrackingData: Codable {
         case crash
         case notes
     }
+}
+
+enum FileImportError: Error {
+    case wrongFormat, wrongHeader, noDataFound
+}
+
+enum ValidationError: Error {
+    case invalidRange
 }

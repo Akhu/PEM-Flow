@@ -130,25 +130,8 @@ struct Home: View {
                     }
                 }
             }
-            .fileImporter(
-                isPresented: .constant(false),
-                allowedContentTypes: [UTType.plainText, UTType.commaSeparatedText],
-                allowsMultipleSelection: false
-            ) { result in
-                do {
-                    guard let selectedFile: URL = try result.get().first else { return }
-                    guard selectedFile.startAccessingSecurityScopedResource() else { return }
-                    
-                    guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
-                    
-                    //document.message = message
-                    
-                    selectedFile.stopAccessingSecurityScopedResource()
-                } catch {
-                    Swift.print(error.localizedDescription)
-                }
-            }
-            .navigationTitle("PEM Flow")
+            
+            .navigationTitle("Pacing.Quest 🧙‍♂️")
         }
         
     }

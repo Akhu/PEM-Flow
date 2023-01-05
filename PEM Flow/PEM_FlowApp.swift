@@ -14,6 +14,7 @@ struct PEM_FlowApp: App {
         WindowGroup {
             Home()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .fontDesign(.rounded)
         }
     }
 }
