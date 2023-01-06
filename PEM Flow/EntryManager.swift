@@ -36,6 +36,29 @@ class EntryManager: ObservableObject {
 //    private var mocDidSaved = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
     @Published var seriesArray = [Series]()
+    
+    static func importDataFromCSV(input: [RawTrackingData], context: NSManagedObjectContext){
+        input.forEach { data in
+            let newItem = Entry(context: context)
+            newItem.id = UUID()
+            newItem.createdAt = data.createdAt
+            
+            newItem.fatigue = data.fatigue
+            newItem.neurologicalPain = data.neurologicalPain
+            newItem.gutPain = data.gutPain
+            newItem.globalPain = data.globalPain
+            
+            newItem.physicalActivity = data.physicalActivity
+            newItem.mentalActivity = data.mentalActivity
+            newItem.socialActivity = data.socialActivity ?? 0
+            newItem.emotionalActivity = data.emotionalActivity
+            
+            newItem.crash = data.crash
+            newItem.goodSleep = data.goodSleep
+            newItem.notes = data.notes
+        }
+        try? context.save()
+    }
 
     
     static func generateSampleItems(number: Int, context: NSManagedObjectContext) {

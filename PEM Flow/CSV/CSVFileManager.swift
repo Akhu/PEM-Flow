@@ -7,6 +7,7 @@
 
 import Foundation
 import CodableCSV
+import CoreData
 
 class CSVFileManager: ObservableObject {
     @Published var dataFromCsvFile = [RawTrackingData]()
@@ -14,7 +15,13 @@ class CSVFileManager: ObservableObject {
     @Published var totalNumberOfDroppedRows = 0
     @Published var fileSelected = false
     
-    @Published var fileName = "Choisir un fichier"
+    @Published var importationError: FileImportError = .noError
+    
+    @Published var fileName = ""
+    
+    func importData(moc: NSManagedObjectContext) {
+        EntryManager.importDataFromCSV(input: dataFromCsvFile, context: moc)
+    }
     
     func importFile(result: Result<[URL], Error>) {
         do {
@@ -22,15 +29,17 @@ class CSVFileManager: ObservableObject {
             guard selectedFile.startAccessingSecurityScopedResource() else { return }
             fileName = selectedFile.lastPathComponent
             
-            //guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: "csv") else { return }
-            
-            guard let stringData = try? String(contentsOf: selectedFile) else { return }
-            
-            print(stringData)
+//            guard let stringData = try? String(contentsOf: selectedFile) else { return }
+//
+//            print(stringData)
             
             guard let rawData = try? Data(contentsOf: selectedFile) else { return }
             selectedFile.stopAccessingSecurityScopedResource()
+            self.totalNumberOfRows = 0
+            self.totalNumberOfDroppedRows = 0
+            self.dataFromCsvFile = [RawTrackingData]()
             fileSelected = true
+            importationError = .noError
             self.decodeCSV(rawData: rawData)
         } catch {
             print(error)
@@ -38,8 +47,6 @@ class CSVFileManager: ObservableObject {
     }
     
     func decodeCSV(rawData: Data) {
-        
-        
         do {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
@@ -51,20 +58,36 @@ class CSVFileManager: ObservableObject {
                 $0.dateStrategy = .formatted(dateFormatter)
             }.lazy(from: rawData)
             
-            var droppedRows = 0
-            
-            self.dataFromCsvFile = decoder.compactMap { element in
-                self.totalNumberOfRows += 1
-                let rowData = try? element.decode(RawTrackingData.self)
-                
-                if rowData == nil || (rowData?.validateTrackingData() ?? false) == false {
+            while let row = decoder.next() {
+                do {
+                    self.totalNumberOfRows += 1
+                    
+                    let rowData = try row.decode(RawTrackingData.self)
+                    let _ = try rowData.validateTrackingData()
+                    self.dataFromCsvFile.append(rowData)
+                    
+                } catch let decodingError as DecodingError {
+                    print("Decoding error \(decodingError)")
                     self.totalNumberOfDroppedRows += 1
-                    return nil
+                } catch let validationError as ValidationError {
+                    print("Validation Error \(validationError)")
+                    self.totalNumberOfDroppedRows += 1
+                }  catch let libraryError as CSVError<CodableCSV.CSVDecoder> {
+                    print("Library Error")
+                    print(libraryError.localizedDescription)
+                    if libraryError.errorCode == CSVDecoder.Error.invalidConfiguration.rawValue {
+                        self.importationError = .wrongHeader
+                    }
+                    break
+                } catch {
+                    print("Other error \(error.localizedDescription)")
                 }
-                return rowData
+            }
+            if self.totalNumberOfRows == 0 {
+                self.importationError = .noDataFound
             }
         } catch {
-            print(error)
+            
         }
     }
 }
@@ -84,11 +107,11 @@ struct RawTrackingData: Codable {
     let notes: String?
     
     
-    func validateTrackingData() -> Bool {
+    func validateTrackingData() throws -> Bool {
         let reflection = Mirror(reflecting: self)
-        return reflection.children.allSatisfy({ label, value in
+        return try reflection.children.allSatisfy({ label, value in
             if let valueIsNumber = value as? Int16, (valueIsNumber > 10 || valueIsNumber < 0) {
-                return false
+                throw ValidationError.invalidRange
             }
             return true
         })
@@ -111,7 +134,7 @@ struct RawTrackingData: Codable {
 }
 
 enum FileImportError: Error {
-    case wrongFormat, wrongHeader, noDataFound
+    case wrongFormat, wrongHeader, noDataFound, noError
 }
 
 enum ValidationError: Error {
