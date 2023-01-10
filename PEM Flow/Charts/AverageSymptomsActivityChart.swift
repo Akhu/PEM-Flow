@@ -8,7 +8,8 @@
 import SwiftUI
 import Charts
 struct AverageSymptomsActivityChart: View {
-    var seriesArray: FetchedResults<Entry>
+//    var seriesArray: FetchedResults<Entry>
+    var seriesArray: [Entry]
     @State var highlightedActivity = true
     @State var highlightedSymptoms = true
     @State var displayCrash = false

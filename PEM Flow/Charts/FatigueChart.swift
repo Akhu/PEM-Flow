@@ -9,8 +9,8 @@ import SwiftUI
 import Charts
 
 struct FatigueChart: View {
-    var items: FetchedResults<Entry>
-    
+//    var items: FetchedResults<Entry>
+    var items: [Entry]
     @State var displayAverageSymptoms = false
     @State var displayAverageActivity = false
     @State var displaySleep = false

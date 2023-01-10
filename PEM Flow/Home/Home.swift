@@ -11,41 +11,21 @@ import Foundation
 import UniformTypeIdentifiers
 
 enum HistorySize {
-    case sinceTwoWeeks, sinceAMonth
+    case sinceTwoWeeks, sinceAMonth, all
 }
 
 struct Home: View {
     
-    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.dismiss) private var dismiss
 
+    @StateObject var viewModel = HomeViewModel()
     @State private var isAddItemOpen = false
     @State var isImportingFile = false
-        
-    private var mocDidSaved = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
-    @State private var dataRefreshing = false
-    @State private var displayCrash = false
-    
-    @State private var historySize = HistorySize.sinceTwoWeeks
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)], animation: .easeInOut(duration: 0.4)) var items: FetchedResults<Entry>
-    
-    func getHistorySizeAsStartInterval() -> Date {
-        let calendar = Calendar.current
-        
-        switch historySize {
-            case .sinceTwoWeeks:
-                return calendar.date(byAdding: .day, value: -14, to: Date())!
-            case .sinceAMonth:
-               return calendar.date(byAdding: .month, value: -1, to: Date())!
-        }
-        
-    }
 
     var body: some View {
         NavigationStack {
             List() {
-               
-                Section("Today") {
+                Section("Today \(viewModel.entries.count)") {
                     Button {
                         isImportingFile.toggle()
                     } label: {
@@ -67,28 +47,21 @@ struct Home: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                if items.count > 0 {
+                if viewModel.entries.count > 0 {
                     VStack {
-                        
-                        Picker("Periode", selection: $historySize) {
+                        Picker("Periode", selection: $viewModel.historySize) {
                             Text("2 semaines").tag(HistorySize.sinceTwoWeeks)
                             Text("Mois").tag(HistorySize.sinceAMonth)
                         }.pickerStyle(SegmentedPickerStyle())
                     
                     }
                     .listRowSeparator(.hidden)
-                    
-                        
-                    Dashboard(startInterval: getHistorySizeAsStartInterval(), displayCrash: $displayCrash)
-                        .animation(.easeInOut(duration: 0.4), value: historySize)
+                    Dashboard()
+                        .animation(.easeInOut(duration: 0.4), value: viewModel.historySize)
                 } else {
                     Text("Pas encore de données, remplissez un rapport journalier pour commencer et voir apparaitre des statistiques.")
                 }
-//                Section("Activities") {
-//                    ActivityChart(seriesArray: items, refreshed: dataRefreshing)
-//                        .frame(height: 300)
-//                        .padding(.horizontal)
-//                }
+ 
                 Section("Conseils & Ressources") {
                     Link("Plan d'évitement MPE", destination: URL(string: "https://google.com")!)
                 }
@@ -101,11 +74,11 @@ struct Home: View {
             }
             .listRowSeparator(.hidden)
             .listStyle(PlainListStyle())
-            .onChange(of: mocDidSaved, perform: { newValue in
-                dataRefreshing.toggle()
-            })
+            .onAppear {
+                viewModel.fetchEntries()
+            }
             .sheet(isPresented: $isAddItemOpen, content: {
-                EditEntry(dataRefreshed: $dataRefreshing)
+                EditEntry()
             })
             .toolbar(id: UUID().uuidString) {
                 
@@ -117,19 +90,18 @@ struct Home: View {
                 ToolbarItem(id:"history") {
                     NavigationLink(destination: {
                         HistoryView()
+                            .environmentObject(viewModel)
                     }, label: {
                         Label("History", systemImage: "clock.arrow.circlepath")
                     })
                 }
                 ToolbarItem(id: "Add Sample") {
                     Button("Add samples") {
-                        EntryManager.generateSampleItems(number: 20, context: viewContext)
-                        if viewContext.hasChanges {
-                            try? viewContext.save()
-                        }
+                        viewModel.addSampleEntries()
                     }
                 }
             }
+            .environmentObject(viewModel)
             
             .navigationTitle("Pacing.Quest 🧙‍♂️")
         }
@@ -154,7 +126,7 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environment(\.managedObjectContext, CoreDataManager.preview.managedObjectContext)
     }
 }
 

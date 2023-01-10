@@ -9,8 +9,7 @@ import SwiftUI
 import Charts
 
 struct ActivityChart: View {
-    var seriesArray: FetchedResults<Entry>
-    @State var refreshed: Bool
+    var seriesArray: [Entry]
     var body: some View {
         Chart {
             ForEach(seriesArray) { entry in
@@ -58,7 +57,7 @@ struct ActivityChart: View {
                 .foregroundStyle(by: .value("Emotional Activity", "Emotional"))
             }
         }
-        .animation(.easeOut(duration: 0.3), value: refreshed)
+        .animation(.easeOut(duration: 0.3), value: seriesArray.count)
         .chartForegroundStyleScale([
             "Physical": .green, "Emotional": .purple, "Mental": .pink, "Social": .yellow
         ])

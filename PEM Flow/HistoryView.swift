@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct HistoryView: View {
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Entry.createdAt, ascending: true)],
-        animation: .easeInOut(duration: 0.4)) var items: FetchedResults<Entry>
+
+    @EnvironmentObject var viewModel: HomeViewModel
+
     var body: some View {
         List {
-            Text("Items Count \(items.count)")
-            ForEach(items) { item in
-                Text(item.unwrappedId.uuidString)
+            Text("Items Count \(viewModel.entries.count)")
+            ForEach(viewModel.entries) { item in
+                VStack {
+                    Text(item.unwrappedId.uuidString)
+                    Text(item.createdAt.ISO8601Format())
+                }
             }
             .onDelete(perform: removeRows)
         }.toolbar {
@@ -25,10 +27,7 @@ struct HistoryView: View {
         .toolbar {
             ToolbarItem(id: "removeAll") {
                 Button("Remove All") {
-                    items.forEach { entry in
-                        moc.delete(entry)
-                    }
-                    try? moc.save()
+                    viewModel.deleteAllEntries()
                 }
             }
         }
@@ -37,10 +36,9 @@ struct HistoryView: View {
     func removeRows(at offsets: IndexSet) {
         let iterator = offsets.makeIterator()
         for i in iterator {
-            let itemToRemove = items[i]
-            moc.delete(itemToRemove)
+            let itemToRemove = viewModel.entries[i]
+            viewModel.deleteEntry(itemToRemove)
         }
-        try? moc.save()
     }
 }
 
@@ -48,6 +46,6 @@ struct HistoryView_Previews: PreviewProvider {
     @Environment(\.managedObjectContext) var moc
     static var previews: some View {
         HistoryView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environment(\.managedObjectContext, CoreDataManager.preview.managedObjectContext)
     }
 }

@@ -8,11 +8,8 @@ import SwiftUI
 
 struct EditEntry: View {
     
-    @ObservedObject var entryManager = EntryManager()
+    @StateObject var viewModel = EditEntryViewModel()
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var viewContext
-    
-    @Binding var dataRefreshed : Bool
     
     private let todayDateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -26,10 +23,10 @@ struct EditEntry: View {
             Section {
                 HStack {
                     Image(systemName: "calendar.badge.plus")
-                    Text(Date(), formatter: todayDateFormat)
+                    Text(viewModel.createdAt, formatter: todayDateFormat)
                 }
             } header: {
-                Text("Aujourd'hui")
+                Text("Date")
             }
 
             
@@ -39,9 +36,9 @@ struct EditEntry: View {
                         .labelStyle(ColoredIconLabelStyle())
                         
                     HStack {
-                        Slider(value: $entryManager.physicalActivity, in: 0...10, step: 1)
+                        Slider(value: $viewModel.physicalActivity, in: 0...10, step: 1)
                         
-                        Text(entryManager.physicalActivity.formatted(.number))
+                        Text(viewModel.physicalActivity.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                 }
@@ -49,9 +46,9 @@ struct EditEntry: View {
                     Label("Social", systemImage: "figure.wave.circle.fill")
                          .labelStyle(ColoredIconLabelStyle())
                     HStack {
-                        Slider(value: $entryManager.socialActivity, in: 0...10, step: 1)
+                        Slider(value: $viewModel.socialActivity, in: 0...10, step: 1)
                         
-                        Text(entryManager.socialActivity.formatted(.number))
+                        Text(viewModel.socialActivity.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                     
@@ -61,9 +58,9 @@ struct EditEntry: View {
                          .labelStyle(ColoredIconLabelStyle())
 
                     HStack {
-                        Slider(value: $entryManager.mentalActivity, in: 0...10, step: 1)
+                        Slider(value: $viewModel.mentalActivity, in: 0...10, step: 1)
                         
-                        Text(entryManager.mentalActivity.formatted(.number))
+                        Text(viewModel.mentalActivity.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                 }
@@ -72,9 +69,9 @@ struct EditEntry: View {
                          .labelStyle(ColoredIconLabelStyle())
                     
                     HStack {
-                        Slider(value: $entryManager.emotionalActivity, in: 0...10, step: 1)
+                        Slider(value: $viewModel.emotionalActivity, in: 0...10, step: 1)
                         
-                        Text(entryManager.emotionalActivity.formatted(.number))
+                        Text(viewModel.emotionalActivity.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                 }
@@ -83,7 +80,7 @@ struct EditEntry: View {
                 VStack(alignment: .leading) {
                     Text("🛌 Sommeil réparateur ?")
                         .modifier(DataElementTitleTextStyle())
-                    Picker("", selection: $entryManager.goodSleep, content: {
+                    Picker("", selection: $viewModel.goodSleep, content: {
                         Text("Oui").tag(true)
                         Text("Non").tag(false)
                     })
@@ -95,8 +92,8 @@ struct EditEntry: View {
                     Text("🫥 Fatigue")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.fatigue, in: 0...10, step: 1)
-                        Text(entryManager.fatigue.formatted(.number))
+                        Slider(value: $viewModel.fatigue, in: 0...10, step: 1)
+                        Text(viewModel.fatigue.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                 }
@@ -104,8 +101,8 @@ struct EditEntry: View {
                     Text("🤕 Douleurs")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.globalPain, in: 0...10, step: 1)
-                        Text(entryManager.globalPain.formatted(.number))
+                        Slider(value: $viewModel.globalPain, in: 0...10, step: 1)
+                        Text(viewModel.globalPain.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                 }
@@ -113,9 +110,9 @@ struct EditEntry: View {
                     Text("😵‍💫 Problèmes digestifs")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.gutPain, in: 0...10, step: 1)
+                        Slider(value: $viewModel.gutPain, in: 0...10, step: 1)
                         
-                        Text(entryManager.gutPain.formatted(.number))
+                        Text(viewModel.gutPain.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                 }
@@ -123,8 +120,8 @@ struct EditEntry: View {
                     Text("😶‍🌫️ Brouillard mental")
                         .modifier(DataElementTitleTextStyle())
                     HStack {
-                        Slider(value: $entryManager.neurologicalPain, in: 0...10, step: 1)
-                        Text(entryManager.neurologicalPain.formatted(.number))
+                        Slider(value: $viewModel.neurologicalPain, in: 0...10, step: 1)
+                        Text(viewModel.neurologicalPain.formatted(.number))
                             .modifier(NumberTextStyle())
                     }
                 }
@@ -133,7 +130,7 @@ struct EditEntry: View {
                 VStack(alignment: .leading) {
                     Text("😖 Avez vous eu un crash ?")
                         .modifier(DataElementTitleTextStyle())
-                    Picker("", selection: $entryManager.crash, content: {
+                    Picker("", selection: $viewModel.crash, content: {
                         Text("Oui")
                             .tag(true)
                         Text("Non").tag(false)
@@ -146,7 +143,7 @@ struct EditEntry: View {
                     Text("🌈 Journal")
                         .modifier(DataElementTitleTextStyle())
                     
-                    TextEditor(text: $entryManager.notes)
+                    TextEditor(text: $viewModel.notes)
                         .padding(.leading, 8)
                         .padding(.top, 8)
                         .background(Color.gray.opacity(0.1))
@@ -163,8 +160,7 @@ struct EditEntry: View {
             Section("Enregistrer") {
                 VStack(alignment: .leading) {
                     Button(action: {
-                        entryManager.saveEntry(moc: viewContext)
-                        dataRefreshed.toggle()
+                        viewModel.saveEntry()
                         presentationMode.wrappedValue.dismiss()
                     }, label: {
                         HStack {
@@ -191,7 +187,7 @@ struct EditEntry: View {
 struct EditEntry_Previews: PreviewProvider {
      
     static var previews: some View {
-        EditEntry(entryManager: EntryManager(), dataRefreshed: .constant(true))
+        EditEntry(viewModel: EditEntryViewModel(dataManager: CoreDataManager.preview))
             
     }
 }

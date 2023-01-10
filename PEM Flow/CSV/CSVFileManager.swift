@@ -20,7 +20,7 @@ class CSVFileManager: ObservableObject {
     @Published var fileName = ""
     
     func importData(moc: NSManagedObjectContext) {
-        EntryManager.importDataFromCSV(input: dataFromCsvFile, context: moc)
+        EntryManager.importDataFromCSV(input: dataFromCsvFile)
     }
     
     func importFile(result: Result<[URL], Error>) {

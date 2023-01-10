@@ -18,16 +18,22 @@
 		925A2EAB2964DA7000FB6B7B /* CSVFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EAA2964DA7000FB6B7B /* CSVFileManager.swift */; };
 		925A2EB22964E79800FB6B7B /* PEMFLOW_CLEAN.csv in Resources */ = {isa = PBXBuildFile; fileRef = 925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */; };
 		925A2EB629672C2F00FB6B7B /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EB529672C2F00FB6B7B /* ButtonStyles.swift */; };
+		925A2EB9296C77F400FB6B7B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EB8296C77F400FB6B7B /* CoreDataManager.swift */; };
+		925A2EBB296C79DB00FB6B7B /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A2EBA296C79DB00FB6B7B /* PersistentStore.swift */; };
 		927BC1BE28D269E8007A76D5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927BC1BD28D269E8007A76D5 /* HistoryView.swift */; };
 		92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */; };
 		92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3172A28B8BD7C00A268AA /* ContentView.swift */; };
 		92C3172D28B8BD7E00A268AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C3172C28B8BD7E00A268AA /* Assets.xcassets */; };
 		92C3173028B8BD7E00A268AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C3172F28B8BD7E00A268AA /* Preview Assets.xcassets */; };
-		92C3173228B8BD7E00A268AA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173128B8BD7E00A268AA /* Persistence.swift */; };
 		92C3173528B8BD7E00A268AA /* PEM_Flow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173328B8BD7E00A268AA /* PEM_Flow.xcdatamodeld */; };
 		92C3173C28B8BE8E00A268AA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173B28B8BE8E00A268AA /* Home.swift */; };
 		92C3173E28B8BFCE00A268AA /* DataStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173D28B8BFCE00A268AA /* DataStructure.swift */; };
 		92C3174028B8C36B00A268AA /* EditEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C3173F28B8C36B00A268AA /* EditEntry.swift */; };
+		92D860D3296D9C0200C51764 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D860D2296D9C0200C51764 /* Onboarding.swift */; };
+		92D860D5296D9FE200C51764 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D860D4296D9FE200C51764 /* HomeViewModel.swift */; };
+		92D860D9296DB24500C51764 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 92D860D8296DB24500C51764 /* OrderedCollections */; };
+		92D860DC296DBCF200C51764 /* EditEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D860DB296DBCF200C51764 /* EditEntryViewModel.swift */; };
+		92D860DE296DC81D00C51764 /* EntryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D860DD296DC81D00C51764 /* EntryRepository.swift */; };
 		92F63BC128E071110098748F /* FatigueChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC028E071110098748F /* FatigueChart.swift */; };
 		92F63BC428E0DBAC0098748F /* SymptomsComparisonChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */; };
 		92F63BC628E0E6050098748F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F63BC528E0E6050098748F /* Dashboard.swift */; };
@@ -45,17 +51,22 @@
 		925A2EAA2964DA7000FB6B7B /* CSVFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVFileManager.swift; sourceTree = "<group>"; };
 		925A2EB12964E79800FB6B7B /* PEMFLOW_CLEAN.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PEMFLOW_CLEAN.csv; sourceTree = "<group>"; };
 		925A2EB529672C2F00FB6B7B /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		925A2EB8296C77F400FB6B7B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		925A2EBA296C79DB00FB6B7B /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		927BC1BD28D269E8007A76D5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		92C3172528B8BD7C00A268AA /* PEM Flow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PEM Flow.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEM_FlowApp.swift; sourceTree = "<group>"; };
 		92C3172A28B8BD7C00A268AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		92C3172C28B8BD7E00A268AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92C3172F28B8BD7E00A268AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		92C3173128B8BD7E00A268AA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		92C3173428B8BD7E00A268AA /* PEM_Flow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PEM_Flow.xcdatamodel; sourceTree = "<group>"; };
 		92C3173B28B8BE8E00A268AA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		92C3173D28B8BFCE00A268AA /* DataStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructure.swift; sourceTree = "<group>"; };
 		92C3173F28B8C36B00A268AA /* EditEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEntry.swift; sourceTree = "<group>"; };
+		92D860D2296D9C0200C51764 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		92D860D4296D9FE200C51764 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		92D860DB296DBCF200C51764 /* EditEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEntryViewModel.swift; sourceTree = "<group>"; };
+		92D860DD296DC81D00C51764 /* EntryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepository.swift; sourceTree = "<group>"; };
 		92F63BC028E071110098748F /* FatigueChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatigueChart.swift; sourceTree = "<group>"; };
 		92F63BC328E0DBAC0098748F /* SymptomsComparisonChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsComparisonChart.swift; sourceTree = "<group>"; };
 		92F63BC528E0E6050098748F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
@@ -67,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92D860D9296DB24500C51764 /* OrderedCollections in Frameworks */,
 				925A2EA72964D9AD00FB6B7B /* CodableCSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +103,20 @@
 			path = CSV;
 			sourceTree = "<group>";
 		};
+		925A2EB7296C775400FB6B7B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */,
+				92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */,
+				92C3173D28B8BFCE00A268AA /* DataStructure.swift */,
+				92129D5628C12A370085C00A /* EntryManager.swift */,
+				925A2EB8296C77F400FB6B7B /* CoreDataManager.swift */,
+				925A2EBA296C79DB00FB6B7B /* PersistentStore.swift */,
+				92D860DD296DC81D00C51764 /* EntryRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		92C3171C28B8BD7C00A268AA = {
 			isa = PBXGroup;
 			children = (
@@ -113,22 +139,18 @@
 				925A2EAC2964DA7600FB6B7B /* CSV */,
 				925A2EA22964D92300FB6B7B /* FileMocks */,
 				92F63BC228E071160098748F /* Charts */,
-				92129D5C28C12E5A0085C00A /* Entry+CoreDataClass.swift */,
-				92129D5D28C12E5A0085C00A /* Entry+CoreDataProperties.swift */,
-				92C3173F28B8C36B00A268AA /* EditEntry.swift */,
+				925A2EB7296C775400FB6B7B /* Data */,
+				92D860DA296DBCDD00C51764 /* EditEntry */,
 				92C3172828B8BD7C00A268AA /* PEM_FlowApp.swift */,
-				92C3173B28B8BE8E00A268AA /* Home.swift */,
+				92D860D6296D9FEC00C51764 /* Home */,
 				92C3172A28B8BD7C00A268AA /* ContentView.swift */,
 				92C3172C28B8BD7E00A268AA /* Assets.xcassets */,
-				92C3173128B8BD7E00A268AA /* Persistence.swift */,
 				92C3173328B8BD7E00A268AA /* PEM_Flow.xcdatamodeld */,
 				92C3172E28B8BD7E00A268AA /* Preview Content */,
-				92C3173D28B8BFCE00A268AA /* DataStructure.swift */,
-				92129D5628C12A370085C00A /* EntryManager.swift */,
 				92129D6028C4F8EA0085C00A /* ViewsStyles.swift */,
 				927BC1BD28D269E8007A76D5 /* HistoryView.swift */,
-				92F63BC528E0E6050098748F /* Dashboard.swift */,
 				925A2EB529672C2F00FB6B7B /* ButtonStyles.swift */,
+				92D860D2296D9C0200C51764 /* Onboarding.swift */,
 			);
 			path = "PEM Flow";
 			sourceTree = "<group>";
@@ -139,6 +161,25 @@
 				92C3172F28B8BD7E00A268AA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		92D860D6296D9FEC00C51764 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				92F63BC528E0E6050098748F /* Dashboard.swift */,
+				92C3173B28B8BE8E00A268AA /* Home.swift */,
+				92D860D4296D9FE200C51764 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		92D860DA296DBCDD00C51764 /* EditEntry */ = {
+			isa = PBXGroup;
+			children = (
+				92C3173F28B8C36B00A268AA /* EditEntry.swift */,
+				92D860DB296DBCF200C51764 /* EditEntryViewModel.swift */,
+			);
+			path = EditEntry;
 			sourceTree = "<group>";
 		};
 		92F63BC228E071160098748F /* Charts */ = {
@@ -171,6 +212,7 @@
 			name = "PEM Flow";
 			packageProductDependencies = (
 				925A2EA62964D9AD00FB6B7B /* CodableCSV */,
+				92D860D8296DB24500C51764 /* OrderedCollections */,
 			);
 			productName = "PEM Flow";
 			productReference = 92C3172528B8BD7C00A268AA /* PEM Flow.app */;
@@ -202,6 +244,7 @@
 			mainGroup = 92C3171C28B8BD7C00A268AA;
 			packageReferences = (
 				925A2EA52964D9AD00FB6B7B /* XCRemoteSwiftPackageReference "CodableCSV" */,
+				92D860D7296DB24500C51764 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 92C3172628B8BD7C00A268AA /* Products */;
 			projectDirPath = "";
@@ -233,14 +276,18 @@
 				92C3174028B8C36B00A268AA /* EditEntry.swift in Sources */,
 				927BC1BE28D269E8007A76D5 /* HistoryView.swift in Sources */,
 				925A2EAB2964DA7000FB6B7B /* CSVFileManager.swift in Sources */,
-				92C3173228B8BD7E00A268AA /* Persistence.swift in Sources */,
+				92D860D5296D9FE200C51764 /* HomeViewModel.swift in Sources */,
+				92D860DC296DBCF200C51764 /* EditEntryViewModel.swift in Sources */,
 				925A2EB629672C2F00FB6B7B /* ButtonStyles.swift in Sources */,
 				92129D5728C12A370085C00A /* EntryManager.swift in Sources */,
+				92D860D3296D9C0200C51764 /* Onboarding.swift in Sources */,
 				921BBB8E29577C9600D71DD6 /* SymptomsChart.swift in Sources */,
 				921BBB8C29577C6D00D71DD6 /* ActivityChart.swift in Sources */,
 				92129D6128C4F8EA0085C00A /* ViewsStyles.swift in Sources */,
 				925A2EA92964D9CF00FB6B7B /* CSVImporterView.swift in Sources */,
+				925A2EB9296C77F400FB6B7B /* CoreDataManager.swift in Sources */,
 				92F63BC428E0DBAC0098748F /* SymptomsComparisonChart.swift in Sources */,
+				92D860DE296DC81D00C51764 /* EntryRepository.swift in Sources */,
 				92C3172B28B8BD7C00A268AA /* ContentView.swift in Sources */,
 				92F63BC628E0E6050098748F /* Dashboard.swift in Sources */,
 				92129D5F28C12E5A0085C00A /* Entry+CoreDataProperties.swift in Sources */,
@@ -248,6 +295,7 @@
 				92C3173C28B8BE8E00A268AA /* Home.swift in Sources */,
 				92C3173E28B8BFCE00A268AA /* DataStructure.swift in Sources */,
 				92C3173528B8BD7E00A268AA /* PEM_Flow.xcdatamodeld in Sources */,
+				925A2EBB296C79DB00FB6B7B /* PersistentStore.swift in Sources */,
 				92F63BC128E071110098748F /* FatigueChart.swift in Sources */,
 				92C3172928B8BD7C00A268AA /* PEM_FlowApp.swift in Sources */,
 				92F63BC828E0EB730098748F /* AverageSymptomsActivityChart.swift in Sources */,
@@ -463,6 +511,14 @@
 				minimumVersion = 0.6.7;
 			};
 		};
+		92D860D7296DB24500C51764 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -470,6 +526,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 925A2EA52964D9AD00FB6B7B /* XCRemoteSwiftPackageReference "CodableCSV" */;
 			productName = CodableCSV;
+		};
+		92D860D8296DB24500C51764 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92D860D7296DB24500C51764 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 /* End XCSwiftPackageProductDependency section */
 

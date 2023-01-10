@@ -11,15 +11,16 @@ import Charts
 //LinearGradient(colors: [.purple, .red], startPoint: .bottom, endPoint: .top)
 //LinearGradient(colors: [.purple, .red], startPoint: .bottom, endPoint: .top)
 struct SymptomsComparisonChart: View {
-    var items: FetchedResults<Entry>
-    @Binding var displayCrash: Bool
+//    var items: FetchedResults<Entry>
+    var items: [Entry]
+    @State var displayCrash: Bool
     
     var seriesData: [(painType: String, data: [(day: Date, level: Int16)])]
     
-    init(items: FetchedResults<Entry>, displayCrash: Binding<Bool>)
+    init(items: [Entry], displayCrash: Bool)
     {
         self.items = items
-        self._displayCrash = displayCrash
+        self.displayCrash = displayCrash
         seriesData = [
             (painType: "Neuro", data: items.map { ($0.createdAt, $0.neurologicalPain) } ),
             (painType: "Digestive", data: items.map { ($0.createdAt, $0.gutPain) } ),

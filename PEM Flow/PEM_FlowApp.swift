@@ -8,12 +8,10 @@ import SwiftUI
 
 @main
 struct PEM_FlowApp: App {
-    let persistenceController = PersistenceController.shared
-    
     var body: some Scene {
         WindowGroup {
             Home()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, CoreDataManager.shared.managedObjectContext)
                 .fontDesign(.rounded)
         }
     }

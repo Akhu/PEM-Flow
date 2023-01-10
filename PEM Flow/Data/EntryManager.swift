@@ -37,7 +37,8 @@ class EntryManager: ObservableObject {
     
     @Published var seriesArray = [Series]()
     
-    static func importDataFromCSV(input: [RawTrackingData], context: NSManagedObjectContext){
+    static func importDataFromCSV(input: [RawTrackingData]){
+        let context = CoreDataManager.shared.managedObjectContext
         input.forEach { data in
             let newItem = Entry(context: context)
             newItem.id = UUID()
@@ -61,23 +62,23 @@ class EntryManager: ObservableObject {
     }
 
     
-    static func generateSampleItems(number: Int, context: NSManagedObjectContext) {
-        for i in 0..<20 {
-            let newItem = Entry(context: context)
-            newItem.id = UUID()
-            newItem.createdAt = Date().addingTimeInterval(-(86400*Double(i)))
-            newItem.fatigue = Int16.random(in: 0...10)
-            newItem.physicalActivity = Int16.random(in: 0...10)
-            newItem.socialActivity = Int16.random(in: 0...10)
-            newItem.mentalActivity = Int16.random(in: 0...5)
-            newItem.emotionalActivity = Int16.random(in: 0...10)
+    static func deleteAllItems(context: NSManagedObjectContext){
+        
+        let managedContext = CoreDataManager.shared.managedObjectContext //your context
+            let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Entry")
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
             
-            newItem.gutPain = Int16.random(in: 0...10)
-            newItem.globalPain = Int16.random(in: 0...10)
-            newItem.neurologicalPain = Int16.random(in: 0...10)
-            newItem.crash = Bool.random()
-            newItem.goodSleep = Bool.random()
-        }
+            do {
+                try managedContext.execute(deleteRequest)
+                try managedContext.save()
+            } catch {
+                print ("There was an error")
+            }
+        
+    }
+    
+    static func generateSampleItems(number: Int, context: NSManagedObjectContext) {
+        
         
         try? context.save()
     }

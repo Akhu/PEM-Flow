@@ -108,6 +108,6 @@ struct CSVImporterView: View {
 struct CSVImporterView_Previews: PreviewProvider {
     static var previews: some View {
         CSVImporterView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+           // .environment(\.managedObjectContext, (CoreDataManager(.preview).context)
     }
 }

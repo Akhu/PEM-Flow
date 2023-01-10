@@ -1,37 +1,19 @@
 //
-//  Persistence.swift
+//  PersistentStore.swift
 //  PEM Flow
 //
-//  Created by Anthony Da cruz on 26/08/2022.
+//  Created by Anthony Da cruz on 09/01/2023.
 //
 
+import Foundation
 import CoreData
 
 
-
-
-struct PersistenceController {
-    static let shared = PersistenceController()
-    
-   
-    
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
-        EntryManager.generateSampleItems(number: 10, context: viewContext)
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        return result
-    }()
-
+class PersistentStore {
     let container: NSPersistentContainer
-
+    
+    var context: NSManagedObjectContext { container.viewContext }
+    
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "PEM_Flow")
         if inMemory {
@@ -54,5 +36,15 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+    }
+    
+    func saveContext () {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch let error as NSError {
+                NSLog("Unresolved error saving context: \(error), \(error.userInfo)")
+            }
+        }
     }
 }
